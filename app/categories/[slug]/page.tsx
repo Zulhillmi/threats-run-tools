@@ -20,5 +20,5 @@ export default async function CategoryPage({ params }: { params: Params }) {
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
   const tools = getToolsByCategory(category.slug);
-  return <section className="section shell"><p className="kicker">Category</p><h1>{category.seoTitle}</h1><p className="lede" style={{ marginLeft: 0 }}>{category.description}</p><div className="grid">{tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div></section>;
+  return <section className="section shell"><p className="kicker">Category</p><h1>{category.seoTitle}</h1><p className="lede flush">{category.description}</p><div className="grid">{tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div></section>;
 }

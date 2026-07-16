@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="URLSCAN featured image">
+  <defs>
+    <radialGradient id="g" cx="80%" cy="0%" r="80%"><stop offset="0" stop-color="#bcff2f" stop-opacity="0.34"/><stop offset="0.55" stop-color="#1d2b0b"/><stop offset="1" stop-color="#050505"/></radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0v48" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1200" height="675" rx="42" fill="url(#g)"/>
+  <rect width="1200" height="675" rx="42" fill="url(#grid)" opacity="0.6"/>
+  <rect x="64" y="58" width="1072" height="559" rx="34" fill="rgba(0,0,0,.34)" stroke="rgba(255,255,255,.16)"/>
+  <text x="94" y="128" fill="#bcff2f" font-family="JetBrains Mono, monospace" font-size="28" font-weight="700" letter-spacing="8">THREATS.RUN TOOLS</text>
+  <text x="94" y="335" fill="#ffffff" font-family="DM Sans, Arial, sans-serif" font-size="118" font-weight="800" letter-spacing="-6">URLSCAN</text>
+  <text x="100" y="407" fill="rgba(255,255,255,.74)" font-family="DM Sans, Arial, sans-serif" font-size="38" font-weight="700">URL ANALYSIS</text>
+  <text x="100" y="482" fill="rgba(255,255,255,.58)" font-family="JetBrains Mono, monospace" font-size="28">DOM • TLS • Redirects</text>
+  <circle cx="1012" cy="177" r="72" fill="#bcff2f" opacity="0.92"/>
+  <path d="M973 178h78M1012 139v78" stroke="#050505" stroke-width="18" stroke-linecap="round" opacity=".82"/>
+</svg>

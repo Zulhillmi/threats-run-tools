@@ -1,3 +1,16 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Admin", robots: { index: false, follow: false } };
+
 export default function AdminPage() {
-  return <section className="section shell"><p className="kicker">Admin</p><h1>Tools admin</h1><div className="grid"><a className="card" href="/admin/submissions/"><h3>Submission queue</h3><p>Review pending tool submissions and approve them into the directory.</p></a><a className="card" href="/admin/tools/"><h3>Published tools</h3><p>Manage featured flags, sponsor tiers, categories, and tool metadata.</p></a><div className="card"><h3>Auth model</h3><p>APIs require an HttpOnly admin session cookie backed by Cloudflare env secrets.</p></div></div></section>;
+  return (
+    <section className="section shell">
+      <p className="kicker">Admin</p>
+      <h1>Tools admin</h1>
+      <div className="grid">
+        <a className="card" href="/admin/submissions/"><h3>Submission queue</h3><p>Review pending tool submissions before publishing.</p></a>
+        <a className="card" href="/admin/tools/"><h3>Published tools</h3><p>Manage featured status, categories, and tool metadata.</p></a>
+      </div>
+    </section>
+  );
 }

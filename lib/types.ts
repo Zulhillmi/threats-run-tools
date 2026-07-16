@@ -11,6 +11,7 @@ export type Tool = {
   githubUrl?: string;
   docsUrl?: string;
   logoUrl?: string;
+  imageUrl?: string;
   pricingModel: PricingModel;
   toolType: string;
   tags: string[];
