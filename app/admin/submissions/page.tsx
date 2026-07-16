@@ -1,0 +1,3 @@
+export default function AdminSubmissionsPage() {
+  return <section className="section shell"><p className="kicker">Admin</p><h1>Submission queue</h1><div className="notice">Static admin shell is ready. The Cloudflare Pages Function at <code>/api/admin/submissions</code> returns live pending submissions after D1 is bound and admin session is set.</div><div className="admin-list"><div className="row-card"><div><strong>Pending submissions</strong><p>Fetch via protected API; approve/reject writes audit fields.</p></div><a className="button ghost" href="/api/admin/submissions">Open API</a></div></div></section>;
+}

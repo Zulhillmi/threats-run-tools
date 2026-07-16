@@ -1,0 +1,18 @@
+name = "threats-run-tools"
+compatibility_date = "2026-07-16"
+pages_build_output_dir = "out"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "threats-run-tools-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "TOOL_ASSETS"
+bucket_name = "threats-run-tools-assets"
+
+# Required Cloudflare Pages env/secrets:
+# ADMIN_PASSWORD = set via dashboard/wrangler secret
+# ADMIN_SESSION_SECRET = set via dashboard/wrangler secret
+# NEXT_PUBLIC_SITE_URL = https://tools.threats.run
+# NEXT_PUBLIC_MAIN_SITE_URL = https://threats.run
