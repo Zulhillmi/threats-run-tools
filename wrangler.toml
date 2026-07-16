@@ -5,7 +5,7 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "DB"
 database_name = "threats-run-tools-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "be6ec312-248b-4cbd-a089-d9346dd29241"
 
 [[r2_buckets]]
 binding = "TOOL_ASSETS"
