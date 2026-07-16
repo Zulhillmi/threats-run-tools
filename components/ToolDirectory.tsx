@@ -1,38 +1,61 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { Category, Tool } from "@/lib/types";
+import type { Category, PricingModel, Tool } from "@/lib/types";
 import { ToolCard } from "@/components/ToolCard";
+
+const pricingLabels: Record<PricingModel, string> = {
+  free: "Free",
+  "open-source": "Open-source",
+  freemium: "Freemium",
+  paid: "Paid",
+  enterprise: "Enterprise",
+};
 
 export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories: Category[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
+  const [pricing, setPricing] = useState("");
+  const [type, setType] = useState("");
+
+  const toolTypes = useMemo(() => Array.from(new Set(tools.map((tool) => tool.toolType))).sort(), [tools]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setQuery(params.get("q") || "");
     setCategory(params.get("category") || "");
+    setPricing(params.get("pricing") || "");
+    setType(params.get("type") || "");
   }, []);
 
   const filteredTools = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return tools.filter((tool) => {
       const matchesCategory = !category || tool.categorySlugs.includes(category);
+      const matchesPricing = !pricing || tool.pricingModel === pricing;
+      const matchesType = !type || tool.toolType === type;
       const haystack = [tool.name, tool.tagline, tool.description, tool.toolType, tool.pricingModel, ...tool.tags, ...tool.categorySlugs]
         .join(" ")
         .toLowerCase();
       const matchesQuery = !needle || haystack.includes(needle);
-      return matchesCategory && matchesQuery;
+      return matchesCategory && matchesPricing && matchesType && matchesQuery;
     });
-  }, [tools, query, category]);
+  }, [tools, query, category, pricing, type]);
+
+  function clearFilters() {
+    setQuery("");
+    setCategory("");
+    setPricing("");
+    setType("");
+  }
 
   return (
     <>
-      <form className="filters" role="search" onSubmit={(event) => event.preventDefault()}>
+      <form className="filters filters-expanded" role="search" onSubmit={(event) => event.preventDefault()}>
         <label className="sr-only" htmlFor="tool-search">Search tools</label>
         <input
           id="tool-search"
-          className="field"
+          className="field search-field"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search tools, tags, use cases…"
@@ -43,8 +66,21 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
           <option value="">All categories</option>
           {categories.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}
         </select>
+        <label className="sr-only" htmlFor="tool-pricing">Filter by pricing</label>
+        <select id="tool-pricing" className="field" value={pricing} onChange={(event) => setPricing(event.target.value)}>
+          <option value="">Any pricing</option>
+          {Object.entries(pricingLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+        </select>
+        <label className="sr-only" htmlFor="tool-type">Filter by tool type</label>
+        <select id="tool-type" className="field" value={type} onChange={(event) => setType(event.target.value)}>
+          <option value="">Any type</option>
+          {toolTypes.map((item) => <option key={item} value={item}>{item}</option>)}
+        </select>
       </form>
-      <p className="result-count">{filteredTools.length} tool{filteredTools.length === 1 ? "" : "s"} found</p>
+      <div className="directory-summary">
+        <p className="result-count">{filteredTools.length} of {tools.length} tools shown</p>
+        {(query || category || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear filters</button>}
+      </div>
       <div className="grid">
         {filteredTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
       </div>

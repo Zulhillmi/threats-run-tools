@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Nuclei feature art">
+  <defs>
+    <radialGradient id="g" cx="25%" cy="20%" r="85%">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.34"/>
+      <stop offset="0.45" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" x2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#84cc16"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#g)"/>
+  <g opacity="0.18" stroke="#e5e7eb" stroke-width="1">
+    <path d="M80 112H880M80 188H880M80 264H880M80 340H880M80 416H880"/>
+    <path d="M150 70V470M300 70V470M450 70V470M600 70V470M750 70V470"/>
+  </g>
+  <g fill="none" stroke="url(#line)" stroke-width="3" opacity="0.8">
+    <path d="M104 404 C236 242 336 374 460 238 S728 198 856 116"/>
+    <circle cx="104" cy="404" r="8" fill="#020617"/>
+    <circle cx="460" cy="238" r="8" fill="#020617"/>
+    <circle cx="856" cy="116" r="8" fill="#020617"/>
+  </g>
+  <rect x="72" y="70" width="816" height="400" rx="32" fill="#020617" opacity="0.72" stroke="#2dd4bf" stroke-opacity="0.45"/>
+  <rect x="112" y="110" width="136" height="136" rx="28" fill="#0f172a" stroke="#2dd4bf" stroke-width="3"/>
+  <text x="180" y="194" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="800" fill="#2dd4bf">N</text>
+  <text x="112" y="315" font-family="Inter,Arial,sans-serif" font-size="44" font-weight="800" fill="#f8fafc">Nuclei</text>
+  <text x="112" y="366" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="600" fill="#a7f3d0">Vulnerability scanner</text>
+  <rect x="112" y="405" width="260" height="10" rx="5" fill="url(#line)"/>
+</svg>
