@@ -1,12 +1,12 @@
 import type { Category, Tool } from "@/lib/types";
 
 export const categories: Category[] = [
-  { slug: "cti", name: "Threat Intelligence", seoTitle: "Best threat intelligence tools", description: "Feeds, enrichment, graphing, and analyst workbench tools for turning indicators into decisions." },
-  { slug: "osint", name: "OSINT", seoTitle: "Best OSINT tools", description: "Open-source intelligence tools for domains, infrastructure, personas, social data, and investigations." },
-  { slug: "malware-analysis", name: "Malware Analysis", seoTitle: "Best malware analysis tools", description: "Sandboxes, reverse engineering helpers, static analysis, dynamic detonation, and sample intelligence." },
-  { slug: "detection-engineering", name: "Detection Engineering", seoTitle: "Best detection engineering tools", description: "Sigma, YARA, SIEM content, rule testing, coverage mapping, and detection-as-code workflows." },
-  { slug: "web3-security", name: "Web3 Security", seoTitle: "Best Web3 security tools", description: "Wallet, contract, transaction, phishing, and scam-investigation tools for crypto security teams." },
-  { slug: "vulnerability-management", name: "Vulnerability Management", seoTitle: "Best vulnerability management tools", description: "CVE intelligence, exploitability, prioritization, EPSS, KEV, and exposure-triage tooling." },
+  { slug: "cti", name: "Threat Intelligence", seoTitle: "Threat intelligence tools for analysts", description: "Feeds, enrichment, graphing, and analyst workbench tools for turning indicators into decisions." },
+  { slug: "osint", name: "OSINT", seoTitle: "OSINT tools for security investigations", description: "Open-source intelligence tools for domains, infrastructure, personas, social data, and investigations." },
+  { slug: "malware-analysis", name: "Malware Analysis", seoTitle: "Malware analysis tools for researchers", description: "Sandboxes, reverse engineering helpers, static analysis, dynamic detonation, and sample intelligence." },
+  { slug: "detection-engineering", name: "Detection Engineering", seoTitle: "Detection engineering tools for SOC teams", description: "Sigma, YARA, SIEM content, rule testing, coverage mapping, and detection-as-code workflows." },
+  { slug: "web3-security", name: "Web3 Security", seoTitle: "Web3 security tools for crypto investigations", description: "Wallet, contract, transaction, phishing, and scam-investigation tools for crypto security teams." },
+  { slug: "vulnerability-management", name: "Vulnerability Management", seoTitle: "Vulnerability management tools for prioritisation", description: "CVE intelligence, exploitability, prioritization, EPSS, KEV, and exposure-triage tooling." },
 ];
 
 export const tools: Tool[] = [
