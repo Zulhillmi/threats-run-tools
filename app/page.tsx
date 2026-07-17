@@ -11,7 +11,7 @@ export default function HomePage() {
   }));
   return <main>
     <section className="hero shell">
-      <p className="eyebrow">Threats.run (TOOLS)</p>
+      <p className="eyebrow">TOOLS</p>
       <h1>Cybersecurity tools for analysts, hunters, and security teams.</h1>
       <p className="lede">A curated directory of investigation, intelligence, malware analysis, detection, Web3 security, and vulnerability management resources.</p>
       <form className="hero-search" action="/tools/" role="search" aria-label="Search cybersecurity tools">

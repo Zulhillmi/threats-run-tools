@@ -20,7 +20,7 @@ function AdminShell({ active, children }: { active: "tools" | "articles"; childr
   async function logout() { await fetch("/api/admin/logout", { method: "POST", credentials: "include" }); location.href = "/admin/login/"; }
   return <div className="wp-admin-shell">
     <aside className="wp-sidebar">
-      <div className="wp-brand"><span>TR</span><div><strong>Threats.run (TOOLS)</strong><small>Management</small></div></div>
+      <div className="wp-brand"><span>TR</span><div><strong>Threats.run TOOLS</strong><small>Management</small></div></div>
       <nav className="wp-nav" aria-label="Admin sections">
         <a className={active === "tools" ? "active" : ""} href="/admin/tools/">Tools</a>
         <a className={active === "articles" ? "active" : ""} href="/admin/blogs/">Articles</a>

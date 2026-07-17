@@ -4,7 +4,7 @@ import { BlogIndexPage } from "@/components/BlogIndexPage";
 
 export const metadata: Metadata = {
   title: "Articles",
-  description: "Analyst notes and cybersecurity workflow guides from Threats.run (TOOLS).",
+  description: "Analyst notes and cybersecurity workflow guides from Threats.run TOOLS.",
   alternates: { canonical: "/blog/" },
 };
 

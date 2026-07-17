@@ -4,9 +4,10 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <a className="brand" href="/" aria-label="Threats.run TOOLS home">
+        <a className="brand subbrand-lockup" href="/" aria-label="Threats.run Tools home">
           <img src="/logo-tr.png" alt="" className="brand-mark" width={32} height={32} />
-          <span>{siteConfig.name}</span>
+          <span className="brand-wordmark">{siteConfig.brandName}</span>
+          <span className="brand-product-pill">{siteConfig.productLabel}</span>
         </a>
         <form className="header-search" action="/tools/" role="search" aria-label="Search cybersecurity tools">
           <label className="sr-only" htmlFor="header-tool-search">Search cybersecurity tools</label>

@@ -1,5 +1,7 @@
 export const siteConfig = {
-  name: "Threats.run (TOOLS)",
+  name: "Threats.run TOOLS",
+  brandName: "threats.run",
+  productLabel: "TOOLS",
   shortName: "TOOLS",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://tools.threats.run",
   mainSiteUrl: process.env.NEXT_PUBLIC_MAIN_SITE_URL || "https://threats.run",

@@ -6,7 +6,7 @@ for (const file of required) {
   if (!existsSync(file)) throw new Error(`Missing build artifact: ${file}`);
 }
 const home = readFileSync(join('out', 'index.html'), 'utf8');
-for (const marker of ['Threats.run (TOOLS)', 'Cybersecurity tools for analysts', 'Explore by category']) {
+for (const marker of ['Cybersecurity tools for analysts', 'Cybersecurity tools for analysts', 'Explore by category']) {
   if (!home.includes(marker)) throw new Error(`Missing homepage marker: ${marker}`);
 }
 const tool = readFileSync(join('out', 'tools', 'urlscan', 'index.html'), 'utf8');

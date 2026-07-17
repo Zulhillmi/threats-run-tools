@@ -106,7 +106,7 @@ export function AdminBlogsApp() {
       <aside className="admin-sidebar-panel enterprise-sidebar">
         <div className="enterprise-brand">
           <span className="admin-orb">TR</span>
-          <div><strong>Threats.run (TOOLS)</strong><small>Management</small></div>
+          <div><strong>Threats.run TOOLS</strong><small>Management</small></div>
         </div>
         <nav className="enterprise-nav" aria-label="Admin sections">
           <a href="/admin/">Catalog</a>
