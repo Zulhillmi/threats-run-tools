@@ -3,12 +3,13 @@ import { getCategoryNames } from "@/data/catalog";
 
 export function ToolCard({ tool }: { tool: Tool }) {
   const initials = tool.name.slice(0, 2).toUpperCase();
+  const visualUrl = tool.screenshotUrl || tool.imageUrl;
 
   return (
     <article className="card tool-card">
       <a className="tool-image-link" href={`/tools/${tool.slug}/`} aria-label={tool.name}>
-        {tool.imageUrl ? (
-          <img className="tool-image" src={tool.imageUrl} alt="" loading="lazy" />
+        {visualUrl ? (
+          <img className="tool-image" src={visualUrl} alt="" loading="lazy" />
         ) : (
           <div className="tool-image fallback-image"><span>{initials}</span></div>
         )}

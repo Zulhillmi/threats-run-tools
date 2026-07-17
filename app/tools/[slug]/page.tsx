@@ -67,6 +67,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
   const features = featureList(tool);
   const useCases = bestFor(tool);
   const faqs = faqList(tool);
+  const visualUrl = tool.screenshotUrl || tool.imageUrl;
 
   return (
     <>
@@ -84,7 +85,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
             <p className="tool-summary">{tool.description}</p>
             <div className="cta-row left"><a className="button" href={`/api/outbound?tool=${encodeURIComponent(tool.slug)}&url=${encodeURIComponent(tool.websiteUrl)}`} rel="nofollow">Visit official site</a>{tool.githubUrl && <a className="button ghost" href={tool.githubUrl}>View GitHub</a>}{tool.docsUrl && <a className="button ghost" href={tool.docsUrl}>Docs</a>}</div>
           </div>
-          <div className="tool-hero-media">{tool.imageUrl && <img src={tool.imageUrl} alt="" />}</div>
+          <div className="tool-hero-media">{visualUrl && <img src={visualUrl} alt="" />}</div>
         </div>
       </section>
 

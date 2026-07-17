@@ -93,7 +93,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           <div className="tool-table">
             {tools.map((tool) => (
               <a className="tool-row" href={`/tools/${tool.slug}/`} key={tool.id}>
-                <img src={tool.imageUrl} alt="" />
+                <img src={tool.screenshotUrl || tool.imageUrl} alt="" />
                 <div className="tool-row-main"><strong>{tool.name}</strong><p>{tool.description}</p><div className="tag-row compact">{getCategoryNames(tool.categorySlugs).map((name) => <span className="tag" key={name}>{name}</span>)}{tool.tags.slice(0, 3).map((tag) => <span className="tag" key={tag}>#{tag}</span>)}</div></div>
                 <div className="tool-row-meta"><span className="pill accent">{tool.toolType}</span><span className="pill">{tool.pricingModel}</span></div>
               </a>
