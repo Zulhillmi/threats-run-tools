@@ -12,11 +12,14 @@ const pricingLabels: Record<PricingModel, string> = {
   enterprise: "Enterprise",
 };
 
+type ViewMode = "grid" | "list";
+
 export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories: Category[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [pricing, setPricing] = useState("");
   const [type, setType] = useState("");
+  const [view, setView] = useState<ViewMode>("grid");
 
   const toolTypes = useMemo(() => Array.from(new Set(tools.map((tool) => tool.toolType))).sort(), [tools]);
 
@@ -26,6 +29,8 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
     setCategory(params.get("category") || "");
     setPricing(params.get("pricing") || "");
     setType(params.get("type") || "");
+    const requestedView = params.get("view");
+    if (requestedView === "list" || requestedView === "grid") setView(requestedView);
   }, []);
 
   const filteredTools = useMemo(() => {
@@ -51,14 +56,14 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
 
   return (
     <>
-      <form className="filters filters-expanded" role="search" onSubmit={(event) => event.preventDefault()}>
+      <form className="filters filters-expanded tools-filters" role="search" onSubmit={(event) => event.preventDefault()}>
         <label className="sr-only" htmlFor="tool-search">Search tools</label>
         <input
           id="tool-search"
           className="field search-field"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search tools, tags, use cases…"
+          placeholder="Search tools, vendors, tags, use cases…"
           autoComplete="off"
         />
         <label className="sr-only" htmlFor="tool-category">Filter by category</label>
@@ -77,11 +82,15 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
           {toolTypes.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
       </form>
-      <div className="directory-summary">
+      <div className="directory-summary tools-summary">
         <p className="result-count">{filteredTools.length} of {tools.length} tools shown</p>
-        {(query || category || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear filters</button>}
+        <div className="view-toolbar" aria-label="Directory view options">
+          {(query || category || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear filters</button>}
+          <button className={`view-button ${view === "grid" ? "active" : ""}`} type="button" onClick={() => setView("grid")} aria-pressed={view === "grid"}>Grid</button>
+          <button className={`view-button ${view === "list" ? "active" : ""}`} type="button" onClick={() => setView("list")} aria-pressed={view === "list"}>List</button>
+        </div>
       </div>
-      <div className="grid">
+      <div className={`grid tool-directory-grid ${view === "list" ? "tool-list-view" : "tool-grid-view"}`}>
         {filteredTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
       </div>
       {filteredTools.length === 0 && <div className="empty-state">No matching tools yet. Try another keyword or submit one we should add.</div>}

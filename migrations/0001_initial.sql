@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS tools (
   github_url TEXT,
   docs_url TEXT,
   logo_key TEXT,
+  screenshot_url TEXT,
+  image_url TEXT,
   pricing_model TEXT NOT NULL DEFAULT 'freemium',
   tool_type TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'draft',

@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 export default function ToolsPage() {
   const tools = getPublishedTools();
   return (
-    <section className="section shell">
-      <div className="section-head">
+    <section className="section shell tools-page-shell">
+      <div className="section-head tools-page-head">
         <div>
           <p className="kicker">Directory</p>
           <h1>Cybersecurity tools</h1>
