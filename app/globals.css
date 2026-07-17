@@ -181,3 +181,34 @@ body:has(.admin-console-page) .site-header,body:has(.admin-console-page) .site-f
 @media (max-width:1200px){.featured-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:900px){.featured-grid,.compact-category-grid,.recent-tool-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.section-actions{justify-content:flex-start}}
 @media (max-width:620px){.featured-grid,.compact-category-grid,.recent-tool-strip{grid-template-columns:1fr}.quick-searches{justify-content:flex-start}.tool-card-actions{grid-template-columns:1fr}.section-actions .button{width:auto}}
+
+
+/* Featured card density pass: larger screenshots, smaller favicons, tighter metadata stack */
+.featured-grid .tool-card{padding:16px;gap:10px;border-radius:22px}
+.featured-grid .tool-image-link{margin:-8px -8px 2px;border-radius:18px}
+.featured-grid .tool-image{height:156px;padding:6px;object-fit:contain;border-radius:18px}
+.featured-grid .tool-image-logo{width:34px;height:34px;right:10px;bottom:10px;border-radius:11px;box-shadow:0 10px 22px rgba(0,0,0,.42)}
+.featured-grid .tool-image-logo img{padding:5px}
+.featured-grid .tool-top{gap:9px;align-items:center;margin-top:0}
+.featured-grid .tool-top .tool-logo{width:30px;height:30px;border-radius:10px}
+.featured-grid .tool-top .tool-logo img{padding:5px}
+.featured-grid .tool-card h3{font-size:19px;line-height:1.12;margin:0 0 5px}
+.featured-grid .pill.accent{font-size:11px;line-height:1;padding:5px 8px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.featured-grid .tool-card p{font-size:14px;line-height:1.45;margin:2px 0 0;min-height:40px;color:rgba(245,245,245,.7)}
+.featured-grid .tool-signal-row{margin-top:0;gap:6px}
+.featured-grid .tool-signal-row span{font-size:10px;line-height:1;padding:5px 7px}
+.featured-grid .tag-row{margin-top:0;gap:6px;align-content:flex-start;min-height:58px}
+.featured-grid .tag-row .tag{font-size:11px;line-height:1;padding:6px 8px;color:rgba(245,245,245,.66)}
+.featured-grid .tool-card-actions{margin-top:2px}
+.featured-grid .tool-card-actions a{min-height:34px;font-size:12px}
+@media (max-width:430px){.featured-grid .tool-image{height:148px}.featured-grid .tag-row{min-height:0}}
+
+
+/* Featured card second pass: remove duplicate title favicon and lower thumbnail badge weight */
+.featured-grid .tool-image{height:164px}
+.featured-grid .tool-image-logo{width:30px;height:30px;right:9px;bottom:9px;border-radius:10px;opacity:.96}
+.featured-grid .tool-image-logo img{padding:4px}
+.featured-grid .tool-top .tool-logo{display:none}
+.featured-grid .tool-top>div{min-width:0}
+.featured-grid .tool-card h3{font-size:20px;margin-bottom:6px}
+.featured-grid .tool-card p{min-height:38px}
