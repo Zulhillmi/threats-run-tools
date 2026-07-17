@@ -7,9 +7,9 @@ function formatPricing(value: Tool["pricingModel"]) {
   return value.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
 }
 
-export function ToolCard({ tool }: { tool: Tool }) {
+export function ToolCard({ tool, imageMode = "screenshot" }: { tool: Tool; imageMode?: "screenshot" | "feature-art" }) {
   const initials = getToolInitials(tool.name);
-  const visualUrl = tool.screenshotUrl || tool.imageUrl;
+  const visualUrl = imageMode === "feature-art" ? tool.imageUrl || tool.screenshotUrl : tool.screenshotUrl || tool.imageUrl;
   const outboundUrl = `/api/outbound/?tool=${encodeURIComponent(tool.slug)}&url=${encodeURIComponent(tool.websiteUrl)}&source=featured_image`;
 
   return (
@@ -22,6 +22,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
           <div className="tool-image fallback-image"><span>{initials}</span></div>
         )}
         <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} className="tool-image-logo" />
+        <span className="tool-image-identity" aria-hidden="true"><strong>{initials}</strong><em>{tool.name}</em></span>
       </a>
       <a className="tool-top" href={`/tools/${tool.slug}/`} aria-label={`View ${tool.name} details`}>
         <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} />

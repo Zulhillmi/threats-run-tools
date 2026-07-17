@@ -212,3 +212,52 @@ body:has(.admin-console-page) .site-header,body:has(.admin-console-page) .site-f
 .featured-grid .tool-top>div{min-width:0}
 .featured-grid .tool-card h3{font-size:20px;margin-bottom:6px}
 .featured-grid .tool-card p{min-height:38px}
+
+
+/* Directory card density pass: match Featured card hierarchy on /tools */
+.tool-directory-grid .tool-card{padding:16px;gap:10px;border-radius:22px}
+.tool-directory-grid.tool-grid-view .tool-image-link{margin:-8px -8px 2px;border-radius:18px}
+.tool-directory-grid.tool-grid-view .tool-image{height:164px;padding:6px;object-fit:contain;border-radius:18px}
+.tool-directory-grid .tool-image-logo{width:30px;height:30px;right:9px;bottom:9px;border-radius:10px;opacity:.96;box-shadow:0 10px 22px rgba(0,0,0,.42)}
+.tool-directory-grid .tool-image-logo img{padding:4px}
+.tool-directory-grid .tool-top{gap:9px;align-items:center;margin-top:0}
+.tool-directory-grid .tool-top .tool-logo{display:none}
+.tool-directory-grid .tool-top>div{min-width:0}
+.tool-directory-grid .tool-card h3{font-size:20px;line-height:1.12;margin:0 0 6px}
+.tool-directory-grid .pill.accent{font-size:11px;line-height:1;padding:5px 8px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-directory-grid .tool-card p{font-size:14px;line-height:1.45;margin:2px 0 0;min-height:38px;color:rgba(245,245,245,.7)}
+.tool-directory-grid .tool-signal-row{margin-top:0;gap:6px}
+.tool-directory-grid .tool-signal-row span{font-size:10px;line-height:1;padding:5px 7px}
+.tool-directory-grid .tag-row{margin-top:0;gap:6px;align-content:flex-start;min-height:58px}
+.tool-directory-grid .tag-row .tag{font-size:11px;line-height:1;padding:6px 8px;color:rgba(245,245,245,.66)}
+.tool-directory-grid .tool-card-actions{margin-top:2px}
+.tool-directory-grid .tool-card-actions a{min-height:34px;font-size:12px}
+.tool-directory-grid.tool-list-view .tool-card{grid-template-columns:300px minmax(0,1fr);gap:10px 18px;padding:14px}
+.tool-directory-grid.tool-list-view .tool-image{height:172px;padding:6px;object-fit:contain}
+.tool-directory-grid.tool-list-view .tag-row{min-height:0}
+@media (max-width:900px){.tool-directory-grid.tool-list-view .tool-card{grid-template-columns:220px minmax(0,1fr)}.tool-directory-grid.tool-grid-view .tool-image{height:156px}}
+@media (max-width:620px){.tool-directory-grid.tool-list-view .tool-card{grid-template-columns:1fr}.tool-directory-grid.tool-list-view .tool-image-link{grid-row:auto}.tool-directory-grid .tag-row{min-height:0}}
+@media (max-width:430px){.tool-directory-grid.tool-grid-view .tool-image{height:148px}}
+
+
+/* Directory thumbnail fill pass: avoid blank-looking contained screenshots */
+.tool-directory-grid.tool-grid-view .tool-image{height:172px;padding:0;object-fit:cover}
+.tool-directory-grid.tool-list-view .tool-image{padding:0;object-fit:cover}
+.tool-directory-grid .fallback-image{background:radial-gradient(circle at 70% 10%,rgba(188,255,47,.28),transparent 44%),linear-gradient(135deg,rgba(188,255,47,.12),rgba(255,255,255,.035)),#090909}
+@media (max-width:900px){.tool-directory-grid.tool-grid-view .tool-image{height:162px}}
+@media (max-width:430px){.tool-directory-grid.tool-grid-view .tool-image{height:150px}}
+
+
+/* Directory card visible identity overlay for low-contrast thumbnails */
+.tool-image-identity{display:none}
+.tool-directory-grid .tool-image-identity{position:absolute;z-index:2;left:12px;bottom:12px;display:flex;align-items:center;gap:8px;max-width:calc(100% - 58px);padding:7px 9px;border-radius:14px;border:1px solid rgba(188,255,47,.28);background:rgba(0,0,0,.62);box-shadow:0 10px 24px rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff}
+.tool-directory-grid .tool-image-identity strong{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:rgba(188,255,47,.16);color:var(--accent);font-size:11px;font-weight:900;letter-spacing:-.02em;flex:0 0 auto}
+.tool-directory-grid .tool-image-identity em{font-style:normal;font-size:12px;font-weight:900;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(245,245,245,.92)}
+.tool-directory-grid .tool-image-banner{z-index:3}
+.tool-directory-grid .tool-image-logo{z-index:4}
+@media (max-width:430px){.tool-directory-grid .tool-image-identity em{max-width:180px}}
+
+
+/* Directory art contrast lift for darker generated thumbnails */
+.tool-directory-grid .tool-image{filter:brightness(1.16) saturate(1.08)}
+.tool-directory-grid .tool-image-link:hover .tool-image{filter:brightness(1.24) saturate(1.12)}
