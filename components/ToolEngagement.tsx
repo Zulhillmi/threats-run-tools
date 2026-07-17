@@ -23,8 +23,7 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
   const [stats, setStats] = useState<Stats>({ views: 0, upvotes: 0, downvotes: 0, score: 0 });
   const [userVote, setUserVote] = useState<1 | -1 | 0>(0);
   const [loadingVote, setLoadingVote] = useState(false);
-  const [showComments, setShowComments] = useState(false);
-  const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
+  const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME || "";
 
   const visitorId = useMemo(() => (typeof document === "undefined" ? "" : getVisitorId()), []);
 
@@ -68,14 +67,14 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
   }
 
   useEffect(() => {
-    if (!showComments || !disqusShortname || document.getElementById("disqus-script")) return;
+    if (!disqusShortname || document.getElementById("disqus-script")) return;
     const script = document.createElement("script");
     script.id = "disqus-script";
     script.src = `https://${disqusShortname}.disqus.com/embed.js`;
     script.async = true;
     script.setAttribute("data-timestamp", String(Date.now()));
     document.body.appendChild(script);
-  }, [showComments, disqusShortname]);
+  }, [disqusShortname]);
 
   return (
     <div className="tool-engagement" data-tool-engagement={slug}>
@@ -88,14 +87,24 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
         <button className={userVote === 1 ? "active" : ""} type="button" disabled={loadingVote} onClick={() => vote(1)}>Useful ↑</button>
         <button className={userVote === -1 ? "active down" : ""} type="button" disabled={loadingVote} onClick={() => vote(-1)}>Not useful ↓</button>
       </div>
-      <div className="review-box">
+      <div className="review-box review-box-visible">
         <div>
           <strong>Community reviews</strong>
-          <p>{disqusShortname ? "Read practitioner notes or add your own comment." : "Reviews are ready for a comment provider; votes are live now."}</p>
+          <p>{disqusShortname ? "Comments load below. Add field notes, caveats, or practitioner feedback." : "Comment provider is not configured yet. This placeholder keeps the review area visible while setup is completed."}</p>
         </div>
-        {disqusShortname ? <button type="button" onClick={() => setShowComments(true)}>Show reviews</button> : <a href="/submit/">Suggest a review</a>}
+        {!disqusShortname && <a href="/submit/">Suggest a review</a>}
       </div>
-      {showComments && disqusShortname && <div id="disqus_thread" data-disqus-ready="true" />}
+      {disqusShortname ? (
+        <div id="disqus_thread" className="disqus-comments-box" data-disqus-ready="true" />
+      ) : (
+        <div className="disqus-comments-box disqus-placeholder" aria-label={`${name} review comments placeholder`}>
+          <label>
+            <span>Your review</span>
+            <textarea placeholder={`Share notes about ${name}...`} disabled />
+          </label>
+          <button type="button" disabled>Post comment</button>
+        </div>
+      )}
     </div>
   );
 }
