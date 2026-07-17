@@ -22,11 +22,6 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
   const [pricing, setPricing] = useState("");
   const [type, setType] = useState("");
   const toolTypes = useMemo(() => Array.from(new Set(tools.map((tool) => tool.toolType))).sort(), [tools]);
-  const popularTags = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const tool of tools) for (const tag of tool.tags) counts.set(tag, (counts.get(tag) || 0) + 1);
-    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10).map(([tag]) => tag);
-  }, [tools]);
 
   const filteredTools = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -41,37 +36,26 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
   }, [tools, query, pricing, type]);
 
   function clearFilters() { setQuery(""); setPricing(""); setType(""); }
-  function quickTag(tag: string) { setQuery(tag); }
 
   return <div className="category-explorer">
-    <form className="category-search-card" role="search" onSubmit={(event) => event.preventDefault()}>
-      <div className="category-search-copy">
-        <p className="kicker">Find within {categoryName}</p>
-        <h2>Search {categoryName.toLowerCase()} tools</h2>
-        <p>Filter this category by vendor, workflow, capability, pricing, or tag.</p>
-      </div>
-      <div className="category-search-controls">
-        <label className="sr-only" htmlFor="category-search">Search category tools</label>
-        <input id="category-search" className="field search-field large" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Search ${categoryName.toLowerCase()} tools…`} autoComplete="off" />
-        <label className="sr-only" htmlFor="category-pricing">Filter by pricing</label>
-        <select id="category-pricing" className="field" value={pricing} onChange={(event) => setPricing(event.target.value)}>
-          <option value="">Any pricing</option>
-          {Object.entries(pricingLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-        </select>
-        <label className="sr-only" htmlFor="category-type">Filter by type</label>
-        <select id="category-type" className="field" value={type} onChange={(event) => setType(event.target.value)}>
-          <option value="">Any type</option>
-          {toolTypes.map((item) => <option key={item} value={item}>{item}</option>)}
-        </select>
-      </div>
-      {popularTags.length > 0 && <div className="quick-tags" aria-label="Popular tags">
-        {popularTags.map((tag) => <button className="tag-button" type="button" key={tag} onClick={() => quickTag(tag)}>#{tag}</button>)}
-      </div>}
+    <form className="category-filter-bar" role="search" onSubmit={(event) => event.preventDefault()}>
+      <label className="sr-only" htmlFor="category-search">Search category tools</label>
+      <input id="category-search" className="field search-field large" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Search ${categoryName.toLowerCase()}…`} autoComplete="off" />
+      <label className="sr-only" htmlFor="category-pricing">Filter by pricing</label>
+      <select id="category-pricing" className="field" value={pricing} onChange={(event) => setPricing(event.target.value)}>
+        <option value="">Any pricing</option>
+        {Object.entries(pricingLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+      </select>
+      <label className="sr-only" htmlFor="category-type">Filter by type</label>
+      <select id="category-type" className="field" value={type} onChange={(event) => setType(event.target.value)}>
+        <option value="">Any type</option>
+        {toolTypes.map((item) => <option key={item} value={item}>{item}</option>)}
+      </select>
+      {(query || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear</button>}
     </form>
 
     <div className="directory-summary category-summary-bar">
-      <p className="result-count"><strong>{filteredTools.length}</strong> of {tools.length} {categoryName.toLowerCase()} tools shown</p>
-      {(query || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear filters</button>}
+      <p className="result-count"><strong>{filteredTools.length}</strong> of {tools.length} listings</p>
     </div>
 
     <div className="tool-table category-tool-table">
@@ -87,6 +71,6 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
         </a>
       ))}
     </div>
-    {filteredTools.length === 0 && <div className="empty-state">No matching tools in this category yet. Try another keyword or clear the filters.</div>}
+    {filteredTools.length === 0 && <div className="empty-state">No matching tools. Try another keyword or clear the filters.</div>}
   </div>;
 }
