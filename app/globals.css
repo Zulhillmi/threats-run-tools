@@ -99,3 +99,39 @@ h2{font-size:clamp(24px,3.2vw,38px);letter-spacing:-.04em;margin:0 0 12px}.conte
 
 /* Enterprise admin shell */
 body:has(.admin-console-page) .site-header,body:has(.admin-console-page) .site-footer{display:none}body:has(.admin-console-page){background:#050505}.admin-console-page{width:100%;min-height:100vh}.enterprise-admin{min-height:100vh;display:grid;grid-template-columns:280px minmax(0,1fr);background:radial-gradient(circle at top right,rgba(188,255,47,.08),transparent 28%),#050505;color:#f5f5f5}.enterprise-sidebar{position:sticky;top:0;height:100vh;border-width:0 1px 0 0;border-radius:0;background:linear-gradient(180deg,#0b0b0b,#050505);padding:22px;display:flex;flex-direction:column;gap:22px}.enterprise-brand{display:flex;gap:12px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}.enterprise-brand strong{display:block;color:#fff}.enterprise-brand small{display:block;color:var(--dim);margin-top:3px}.admin-orb{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;border:1px solid rgba(188,255,47,.36);background:rgba(188,255,47,.1);color:var(--accent);font-weight:900;box-shadow:0 0 28px rgba(188,255,47,.1)}.enterprise-nav{display:grid;gap:8px}.enterprise-nav a{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-radius:14px;border:1px solid transparent;color:var(--muted);font-weight:800}.enterprise-nav a:hover,.enterprise-nav a.active{border-color:rgba(188,255,47,.34);background:rgba(188,255,47,.1);color:#fff}.enterprise-main{min-width:0;padding:28px}.enterprise-hero{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px;padding:24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(188,255,47,.045))}.enterprise-hero h1{margin:4px 0;font-size:clamp(34px,4vw,56px);letter-spacing:-.055em}.enterprise-hero p{margin:0;color:var(--muted);max-width:760px}.admin-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.admin-metric-grid div{border:1px solid var(--line);border-radius:20px;padding:16px;background:rgba(255,255,255,.045)}.admin-metric-grid span{display:block;color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.12em}.admin-metric-grid strong{display:block;margin-top:6px;color:#fff;font-size:30px;line-height:1}.admin-status-strip{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;padding:11px 14px;border:1px solid rgba(188,255,47,.22);border-radius:16px;background:rgba(188,255,47,.07);color:#dfffb1;font-size:13px}.enterprise-workbench{display:grid;grid-template-columns:360px minmax(0,1fr);gap:16px;align-items:start}.enterprise-list-panel,.enterprise-editor{border-radius:24px;background:rgba(15,15,15,.92);box-shadow:0 24px 80px rgba(0,0,0,.28)}.enterprise-record-list{max-height:calc(100vh - 330px)}.enterprise-record-list button{border-radius:14px}.enterprise-record-list button.active{box-shadow:inset 3px 0 0 var(--accent)}.sticky-editor-head{position:sticky;top:0;z-index:3;margin:-18px -18px 18px;padding:18px;border-bottom:1px solid var(--line);border-radius:24px 24px 0 0;background:rgba(15,15,15,.96);backdrop-filter:blur(14px)}.enterprise-form-grid{gap:14px}.admin-field{display:grid;gap:7px;color:var(--muted);font-weight:800;font-size:13px;margin:0 0 14px}.admin-field span{color:#d4d4d4}.admin-field small{color:var(--dim);font-weight:500}.enterprise-editor .field{border-radius:12px;background:#1b1b1b;border-color:#343434}.enterprise-editor .textarea{min-height:150px}.enterprise-markdown-field{min-height:420px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;line-height:1.6}.enterprise-checks{background:#111;border-radius:18px}.danger-button:hover{border-color:rgba(255,78,78,.55);color:#ffb4b4}.notice.warning{border-color:rgba(255,200,88,.35);background:rgba(255,200,88,.1);color:#ffe1a3}.notice.warning ul{margin:8px 0 0;padding-left:18px}@media (max-width:1100px){.enterprise-admin{grid-template-columns:1fr}.enterprise-sidebar{position:static;height:auto;border-width:0 0 1px 0}.enterprise-workbench{grid-template-columns:1fr}.admin-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:680px){.enterprise-main{padding:16px}.enterprise-hero{display:grid}.admin-metric-grid{grid-template-columns:1fr}.enterprise-admin .admin-actions{width:100%}.enterprise-admin .button{width:100%}}
+
+
+/* Admin console typography: keep operator UI compact, not landing-page scale. */
+.enterprise-admin{font-size:13px}
+.enterprise-brand strong{font-size:13px;line-height:1.2}
+.enterprise-brand small{font-size:11px;line-height:1.2}
+.admin-orb{width:36px;height:36px;border-radius:12px;font-size:12px}
+.enterprise-nav a{padding:9px 11px;border-radius:12px;font-size:13px;font-weight:700}
+.enterprise-main{padding:22px}
+.enterprise-hero{padding:18px 20px;border-radius:22px;margin-bottom:14px}
+.enterprise-hero h1{font-size:clamp(24px,2.4vw,34px);letter-spacing:-.04em;line-height:1.05}
+.enterprise-hero p{font-size:13px;line-height:1.45;max-width:680px}
+.enterprise-admin .eyebrow,.enterprise-admin .kicker{font-size:10px;letter-spacing:.11em}
+.admin-metric-grid{gap:10px;margin-bottom:10px}
+.admin-metric-grid div{padding:12px 14px;border-radius:16px}
+.admin-metric-grid span{font-size:10px;letter-spacing:.1em}
+.admin-metric-grid strong{font-size:21px;margin-top:4px}
+.admin-status-strip{padding:9px 12px;border-radius:14px;font-size:12px;margin-bottom:12px}
+.enterprise-workbench{grid-template-columns:340px minmax(0,1fr);gap:14px}
+.enterprise-list-panel,.enterprise-editor{border-radius:20px}
+.admin-panel{padding:14px}
+.admin-toolbar{gap:10px;margin-bottom:10px}
+.enterprise-admin .admin-toolbar h2{font-size:18px;line-height:1.15;letter-spacing:-.025em;margin:1px 0 0}
+.enterprise-admin .pill,.enterprise-admin .tag{font-size:11px;padding:4px 8px}
+.enterprise-admin .button{min-height:36px;padding:8px 13px;font-size:12px;font-weight:750}
+.enterprise-admin .button.small{min-height:32px;padding:6px 10px;font-size:11px}
+.enterprise-record-list{max-height:calc(100vh - 285px);gap:7px}
+.enterprise-record-list button,.admin-tool-list button{padding:9px 10px;border-radius:12px;font-size:12px;line-height:1.25}
+.enterprise-record-list button strong{font-size:13px}
+.admin-field{gap:5px;font-size:12px;margin-bottom:10px;font-weight:700}
+.admin-field small{font-size:11px;line-height:1.35}
+.enterprise-editor .field,.enterprise-editor .textarea{min-height:38px;border-radius:10px;padding:0 11px;font-size:13px}
+.enterprise-editor .textarea{min-height:118px;padding:10px 11px;line-height:1.45}
+.enterprise-markdown-field{min-height:340px;font-size:12px;line-height:1.5}
+.enterprise-checks{border-radius:14px;font-size:12px;padding:10px}
+@media (max-width:680px){.enterprise-hero h1{font-size:clamp(23px,7vw,30px)}.enterprise-main{padding:14px}.enterprise-hero{padding:16px}.enterprise-workbench{grid-template-columns:1fr}}
