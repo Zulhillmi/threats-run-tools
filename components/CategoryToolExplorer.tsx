@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { PricingModel, Tool } from "@/lib/types";
+import { ToolLogo } from "@/components/ToolLogo";
 
 const PAGE_SIZE = 12;
 
@@ -70,7 +71,10 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
     <div className="tool-table category-tool-table">
       {paginatedTools.map((tool) => (
         <a className="tool-row rich-tool-row" href={`/tools/${tool.slug}/`} key={tool.id}>
-          {tool.screenshotUrl || tool.imageUrl ? <img src={tool.screenshotUrl || tool.imageUrl} alt="" loading="lazy" /> : <div className="tool-row-fallback">{tool.name.slice(0,2).toUpperCase()}</div>}
+          <div className="tool-row-visual">
+            {tool.screenshotUrl || tool.imageUrl ? <img src={tool.screenshotUrl || tool.imageUrl} alt="" loading="lazy" /> : <div className="tool-row-fallback" />}
+            <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} className="tool-row-logo" size="row" />
+          </div>
           <div className="tool-row-main">
             <div className="tool-row-title"><strong>{tool.name}</strong>{tool.featured && <span className="pill accent">Featured</span>}</div>
             <p>{tool.tagline || tool.description}</p>

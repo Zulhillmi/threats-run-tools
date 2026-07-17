@@ -1,8 +1,10 @@
 import type { Tool } from "@/lib/types";
 import { getCategoryNames } from "@/data/catalog";
+import { ToolLogo } from "@/components/ToolLogo";
+import { getToolInitials } from "@/lib/tool-logo";
 
 export function ToolCard({ tool }: { tool: Tool }) {
-  const initials = tool.name.slice(0, 2).toUpperCase();
+  const initials = getToolInitials(tool.name);
   const visualUrl = tool.screenshotUrl || tool.imageUrl;
   const outboundUrl = `/api/outbound/?tool=${encodeURIComponent(tool.slug)}&url=${encodeURIComponent(tool.websiteUrl)}&source=featured_image`;
 
@@ -15,9 +17,10 @@ export function ToolCard({ tool }: { tool: Tool }) {
         ) : (
           <div className="tool-image fallback-image"><span>{initials}</span></div>
         )}
+        <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} className="tool-image-logo" />
       </a>
       <a className="tool-top" href={`/tools/${tool.slug}/`} aria-label={`View ${tool.name} details`}>
-        <div className="tool-logo">{initials}</div>
+        <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} />
         <div>
           <h3>{tool.name}</h3>
           <span className="pill accent">{tool.toolType}</span>

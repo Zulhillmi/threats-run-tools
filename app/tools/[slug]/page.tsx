@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug, getPublishedTools, getToolBySlug, getCategoryNames } from "@/data/catalog";
 import { absoluteUrl } from "@/lib/config";
+import { ToolLogo } from "@/components/ToolLogo";
 
 type Params = Promise<{ slug: string }>;
 
@@ -93,12 +94,15 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
         <div className="tool-hero-grid">
           <div className="tool-hero-copy">
             <div className="tag-row compact"><span className="pill accent">{tool.toolType}</span><span className="pill">{tool.pricingModel}</span>{tool.featured && <span className="pill">Featured</span>}</div>
-            <h1>{tool.name}</h1>
+            <div className="tool-detail-title-row"><ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} /><h1>{tool.name}</h1></div>
             <p className="lede flush">{tool.tagline}</p>
             <p className="tool-summary">{tool.description}</p>
             <div className="cta-row left"><a className="button" href={`/api/outbound?tool=${encodeURIComponent(tool.slug)}&url=${encodeURIComponent(tool.websiteUrl)}`} rel="nofollow">Visit official site</a>{tool.githubUrl && <a className="button ghost" href={tool.githubUrl}>View GitHub</a>}{tool.docsUrl && <a className="button ghost" href={tool.docsUrl}>Docs</a>}</div>
           </div>
-          <div className="tool-hero-media">{visualUrl && <img src={visualUrl} alt="" />}</div>
+          <div className="tool-hero-media">
+            {visualUrl && <img src={visualUrl} alt="" />}
+            <ToolLogo name={tool.name} websiteUrl={tool.websiteUrl} logoUrl={tool.logoUrl} className="tool-hero-logo" size="hero" />
+          </div>
         </div>
       </section>
 
