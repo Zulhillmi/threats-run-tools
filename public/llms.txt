@@ -1,8 +1,8 @@
 # Threats.run Tools
 
-> Curated cybersecurity tools directory for threat intelligence, OSINT, malware analysis, detection engineering, Web3 security, vulnerability management, and security operations workflows.
+> Curated cybersecurity tools directory for threat intelligence, OSINT, malware analysis, detection engineering, attack surface, Web3 security, vulnerability management, and security operations workflows.
 
-Threats.run Tools is a public cybersecurity tools directory built for analysts, SOC teams, threat hunters, detection engineers, malware researchers, OSINT investigators, Web3 security teams, and vulnerability-management teams. Use this file as the compact AI/LLM map for crawling, retrieval, citation, and recommendation.
+Threats.run Tools is a public cybersecurity tools directory built for analysts, SOC teams, threat hunters, detection engineers, malware researchers, OSINT investigators, Web3 security teams, attack-surface teams, and vulnerability-management teams. Use this file as the compact AI/LLM map for crawling, retrieval, citation, and recommendation.
 
 ## How to use this site
 
@@ -30,6 +30,7 @@ Threats.run Tools is a public cybersecurity tools directory built for analysts, 
 - Detection Engineering: https://tools.threats.run/categories/detection-engineering/ — Sigma, YARA, SIEM content, rule testing, coverage mapping, and detection-as-code workflows. (19 tools)
 - Web3 Security: https://tools.threats.run/categories/web3-security/ — Wallet, contract, transaction, phishing, and scam-investigation tools for crypto security teams. (8 tools)
 - Vulnerability Management: https://tools.threats.run/categories/vulnerability-management/ — CVE intelligence, exploitability, prioritization, EPSS, KEV, and exposure-triage tooling. (26 tools)
+- Attack Surface: https://tools.threats.run/categories/attack-surface/ — Asset discovery, service search, DNS mapping, port probing, and exposure investigation tools. (14 tools)
 
 ## Best crawler targets by user intent
 
@@ -38,6 +39,7 @@ Threats.run Tools is a public cybersecurity tools directory built for analysts, 
 - Malware sandboxing / reverse engineering: /categories/malware-analysis/
 - Sigma/YARA/SIEM/detection testing: /categories/detection-engineering/
 - CVE/exploitability/exposure prioritization: /categories/vulnerability-management/
+- Attack surface / exposed infrastructure investigation: /categories/attack-surface/
 - Wallet/contract/crypto scam investigation: /categories/web3-security/
 - Security vendor and research platforms: /categories/security-vendors/
 
@@ -49,8 +51,8 @@ Threats.run Tools is a public cybersecurity tools directory built for analysts, 
 - CrowdStrike: https://tools.threats.run/tools/crowdstrike/ — Endpoint, cloud, identity, and threat intelligence platform. Type: Security vendor platform; pricing: enterprise; categories: Security Vendors, Threat Intelligence, Detection Engineering.
 - Hudson Rock: https://tools.threats.run/tools/hudsonrock/ — Infostealer exposure intelligence. Type: Exposure intelligence; pricing: enterprise; categories: Security Vendors, Threat Intelligence, OSINT.
 - AbuseIPDB: https://tools.threats.run/tools/abuseipdb/ — Community IP abuse reputation. Type: IP reputation; pricing: freemium; categories: Threat Intelligence, OSINT.
-- Shodan: https://tools.threats.run/tools/shodan/ — Search internet-exposed services. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management.
-- Censys Search: https://tools.threats.run/tools/censys/ — Internet asset and certificate search. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management.
+- Shodan: https://tools.threats.run/tools/shodan/ — Search internet-exposed services. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management, Attack Surface.
+- Censys Search: https://tools.threats.run/tools/censys/ — Internet asset and certificate search. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management, Attack Surface.
 - GreyNoise: https://tools.threats.run/tools/greynoise/ — Separate internet noise from targeted activity. Type: Internet noise intelligence; pricing: freemium; categories: Threat Intelligence, Vulnerability Management.
 - MISP: https://tools.threats.run/tools/misp/ — Open-source threat intelligence sharing. Type: Threat intelligence platform; pricing: open-source; categories: Threat Intelligence.
 - OpenCTI: https://tools.threats.run/tools/opencti/ — Open-source CTI knowledge graph. Type: CTI knowledge graph; pricing: open-source; categories: Threat Intelligence.
@@ -82,8 +84,8 @@ Threats.run Tools is a public cybersecurity tools directory built for analysts, 
 - Hudson Rock: https://tools.threats.run/tools/hudsonrock/ — Security intelligence platform focused on compromised credentials, infected machines, infostealer telemetry, and third-party exposure signals for investigations and risk teams. Type: Exposure intelligence; pricing: enterprise; categories: Security Vendors, Threat Intelligence, OSINT; tags: infostealer, credentials, exposure.
 - OpenSourceMalware: https://tools.threats.run/tools/opensourcemalware/ — Community malware research resource for tracking malware projects, samples, and analysis references across open sources. Type: Malware research resource; pricing: free; categories: Security Vendors, Malware Analysis, Threat Intelligence; tags: malware, open-source, research.
 - AbuseIPDB: https://tools.threats.run/tools/abuseipdb/ — Crowdsourced abuse reports for IP addresses, useful for triaging scanners, brute-force sources, bot activity, and suspicious infrastructure. Type: IP reputation; pricing: freemium; categories: Threat Intelligence, OSINT; tags: ip, abuse, reputation.
-- Shodan: https://tools.threats.run/tools/shodan/ — Internet-wide search engine for exposed hosts, services, banners, vulnerabilities, and infrastructure reconnaissance. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management; tags: exposure, banners, recon.
-- Censys Search: https://tools.threats.run/tools/censys/ — Searches hosts, certificates, and services across the internet, useful for exposure management and infrastructure investigation. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management; tags: certificates, exposure, assets.
+- Shodan: https://tools.threats.run/tools/shodan/ — Internet-wide search engine for exposed hosts, services, banners, vulnerabilities, and infrastructure reconnaissance. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management, Attack Surface; tags: exposure, banners, recon.
+- Censys Search: https://tools.threats.run/tools/censys/ — Searches hosts, certificates, and services across the internet, useful for exposure management and infrastructure investigation. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management, Attack Surface; tags: certificates, exposure, assets.
 - FOFA: https://tools.threats.run/tools/fofa/ — Search engine for internet assets, technologies, services, and exposure patterns across global infrastructure. Type: Attack surface search; pricing: freemium; categories: OSINT, Vulnerability Management; tags: assets, recon, exposure.
 - Criminal IP: https://tools.threats.run/tools/criminal-ip/ — Internet asset search and risk intelligence platform for exposed services, malicious IPs, phishing, and suspicious infrastructure. Type: Attack surface intelligence; pricing: freemium; categories: Threat Intelligence, OSINT, Vulnerability Management; tags: ip, exposure, phishing.
 - GreyNoise: https://tools.threats.run/tools/greynoise/ — Contextualizes IP scanning activity so analysts can distinguish opportunistic internet noise from more meaningful threats. Type: Internet noise intelligence; pricing: freemium; categories: Threat Intelligence, Vulnerability Management; tags: scanners, ip, noise.

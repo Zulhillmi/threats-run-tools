@@ -3,6 +3,10 @@ import { getCategoryNames } from "@/data/catalog";
 import { ToolLogo } from "@/components/ToolLogo";
 import { getToolInitials } from "@/lib/tool-logo";
 
+function formatPricing(value: Tool["pricingModel"]) {
+  return value.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
+}
+
 export function ToolCard({ tool }: { tool: Tool }) {
   const initials = getToolInitials(tool.name);
   const visualUrl = tool.screenshotUrl || tool.imageUrl;
@@ -27,8 +31,17 @@ export function ToolCard({ tool }: { tool: Tool }) {
         </div>
       </a>
       <p>{tool.tagline}</p>
+      <div className="tool-signal-row">
+        <span>{formatPricing(tool.pricingModel)}</span>
+        {tool.githubUrl && <span>GitHub</span>}
+        {tool.websiteUrl.includes("github.com") && !tool.githubUrl && <span>GitHub</span>}
+        {tool.tags.slice(0, 1).map((tag) => <span key={tag}>#{tag}</span>)}
+      </div>
       <div className="tag-row">
-        {getCategoryNames(tool.categorySlugs).map((name) => <span className="tag" key={name}>{name}</span>)}
+        {getCategoryNames(tool.categorySlugs).slice(0, 3).map((name) => <span className="tag" key={name}>{name}</span>)}
+      </div>
+      <div className="tool-card-actions single-action">
+        <a href={`/tools/${tool.slug}/`}>View details</a>
       </div>
     </article>
   );
