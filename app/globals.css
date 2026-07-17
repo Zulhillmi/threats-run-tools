@@ -247,17 +247,3 @@ body:has(.admin-console-page) .site-header,body:has(.admin-console-page) .site-f
 @media (max-width:900px){.tool-directory-grid.tool-grid-view .tool-image{height:162px}}
 @media (max-width:430px){.tool-directory-grid.tool-grid-view .tool-image{height:150px}}
 
-
-/* Directory card visible identity overlay for low-contrast thumbnails */
-.tool-image-identity{display:none}
-.tool-directory-grid .tool-image-identity{position:absolute;z-index:2;left:12px;bottom:12px;display:flex;align-items:center;gap:8px;max-width:calc(100% - 58px);padding:7px 9px;border-radius:14px;border:1px solid rgba(188,255,47,.28);background:rgba(0,0,0,.62);box-shadow:0 10px 24px rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff}
-.tool-directory-grid .tool-image-identity strong{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:rgba(188,255,47,.16);color:var(--accent);font-size:11px;font-weight:900;letter-spacing:-.02em;flex:0 0 auto}
-.tool-directory-grid .tool-image-identity em{font-style:normal;font-size:12px;font-weight:900;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(245,245,245,.92)}
-.tool-directory-grid .tool-image-banner{z-index:3}
-.tool-directory-grid .tool-image-logo{z-index:4}
-@media (max-width:430px){.tool-directory-grid .tool-image-identity em{max-width:180px}}
-
-
-/* Directory art contrast lift for darker generated thumbnails */
-.tool-directory-grid .tool-image{filter:brightness(1.16) saturate(1.08)}
-.tool-directory-grid .tool-image-link:hover .tool-image{filter:brightness(1.24) saturate(1.12)}

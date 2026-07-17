@@ -99,7 +99,7 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
         </div>
       </div>
       <div className={`grid tool-directory-grid ${view === "list" ? "tool-list-view" : "tool-grid-view"}`}>
-        {paginatedTools.map((tool) => <ToolCard key={tool.id} tool={tool} imageMode="feature-art" />)}
+        {paginatedTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
       </div>
       {filteredTools.length > PAGE_SIZE && <div className="pagination" aria-label="Tools pagination">
         <button className="button ghost small" type="button" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>Previous</button>
