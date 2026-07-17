@@ -1,9 +1,7 @@
-import { json, requireAdmin, nowIso, slugify, type PagesContext } from "../_shared";
+import { json, nowIso, slugify, type PagesContext } from "../_shared";
 import { validateSubmissionInput } from "../../../lib/submissionValidation";
 
 export async function onRequestPost(context: PagesContext) {
-  const unauthorized = await requireAdmin(context.request, context.env);
-  if (unauthorized) return unauthorized;
   let body: Record<string, unknown>;
   try { body = await context.request.json(); } catch { return json({ error: "Invalid JSON" }, { status: 400 }); }
   const valid = validateSubmissionInput(body);

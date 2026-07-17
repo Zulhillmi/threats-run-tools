@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { getSubmissionValidationErrors, type SubmissionValidationErrors } from "@/lib/submissionValidation";
 
-type Status = "idle" | "uploading" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "success" | "error";
 
 type FormState = {
   name: string;
@@ -54,34 +54,13 @@ export function SubmitToolForm() {
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<SubmissionValidationErrors>({});
   const [form, setForm] = useState<FormState>(initialForm);
-  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewUrl] = useState("");
 
   const imagePreview = useMemo(() => form.image_url || form.screenshot_url || previewUrl, [form.image_url, form.screenshot_url, previewUrl]);
 
   function setField<K extends keyof FormState>(field: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [field]: value }));
     setFieldErrors((current) => ({ ...current, [field]: undefined }));
-  }
-
-  async function uploadImage(file?: File | null) {
-    if (!file) return;
-    setStatus("uploading");
-    setMessage("Uploading featured image…");
-    const payload = new FormData();
-    payload.set("file", file);
-    payload.set("name", form.name || "tool-image");
-    const response = await fetch("/api/assets/upload", { method: "POST", credentials: "include", body: payload });
-    const data = (await response.json().catch(() => ({}))) as { error?: string; url?: string };
-    if (!response.ok || !data.url) {
-      setStatus("error");
-      setMessage(data.error || "Image upload failed.");
-      return;
-    }
-    setField("image_url", data.url);
-    setField("screenshot_url", data.url);
-    setPreviewUrl(URL.createObjectURL(file));
-    setStatus("idle");
-    setMessage("Featured image uploaded and attached.");
   }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -95,7 +74,7 @@ export function SubmitToolForm() {
       setMessage("Please correct the highlighted fields.");
       return;
     }
-    const response = await fetch("/api/submissions", { method: "POST", headers: { "content-type": "application/json" }, credentials: "include", body: JSON.stringify(form) });
+    const response = await fetch("/api/submissions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
     const data = (await response.json().catch(() => ({}))) as { error?: string; fieldErrors?: SubmissionValidationErrors };
     if (!response.ok) {
       setStatus("error");
@@ -104,10 +83,9 @@ export function SubmitToolForm() {
       return;
     }
     setForm(initialForm);
-    setPreviewUrl("");
     setFieldErrors({});
     setStatus("success");
-    setMessage("Submitted. It is in the review queue.");
+    setMessage("Submitted. Thanks — we will review it before listing.");
   }
 
   return <form className="form submit-form" onSubmit={onSubmit}>
@@ -122,12 +100,11 @@ export function SubmitToolForm() {
       </section>
 
       <aside className="content-card submit-card media-card">
-        <p className="kicker">Featured image</p>
+        <p className="kicker">Optional image</p>
         <div className="image-dropzone">
-          {imagePreview ? <img src={imagePreview} alt="Featured image preview" /> : <div><strong>Upload a featured image</strong><span>PNG, JPG, WebP, GIF, or SVG. Max 4 MB.</span></div>}
+          {imagePreview ? <img src={imagePreview} alt="Listing image preview" /> : <div><strong>Add a public image link</strong><span>Paste a logo, screenshot, or product image URL if available.</span></div>}
         </div>
-        <label>Upload image<input className="field file-field" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" onChange={(event) => void uploadImage(event.target.files?.[0])} /></label>
-        <label>Or paste image URL<input className={inputClass(fieldErrors.imageUrl)} value={form.image_url} onChange={(event) => { setField("image_url", event.target.value); setField("screenshot_url", event.target.value); }} placeholder="https://.../screenshot.webp" /><FieldError message={fieldErrors.imageUrl} /></label>
+        <label>Image URL<input className={inputClass(fieldErrors.imageUrl)} value={form.image_url} onChange={(event) => { setField("image_url", event.target.value); setField("screenshot_url", event.target.value); }} placeholder="https://.../screenshot.webp" /><FieldError message={fieldErrors.imageUrl} /></label>
         <label>Logo URL / icon URL<input className={inputClass(fieldErrors.logoUrl)} value={form.logo_url} onChange={(event) => setField("logo_url", event.target.value)} placeholder="Optional" /><FieldError message={fieldErrors.logoUrl} /></label>
       </aside>
     </div>
@@ -138,7 +115,7 @@ export function SubmitToolForm() {
       <div className="submit-two-col"><label>GitHub URL<input className={inputClass(fieldErrors.githubUrl)} value={form.github_url} onChange={(event) => setField("github_url", event.target.value)} placeholder="Optional" /><FieldError message={fieldErrors.githubUrl} /></label><label>Docs URL<input className={inputClass(fieldErrors.docsUrl)} value={form.docs_url} onChange={(event) => setField("docs_url", event.target.value)} placeholder="Optional" /><FieldError message={fieldErrors.docsUrl} /></label></div>
       <label>Tags<small>Comma-separated: ioc, enrichment, sandbox, yara…</small><input className="field" value={form.tags} onChange={(event) => setField("tags", event.target.value)} /></label>
       <label>Reviewer notes<textarea className="field" value={form.notes} onChange={(event) => setField("notes", event.target.value)} placeholder="Why this belongs in the directory, edge cases, vendor notes, etc." /></label>
-      <div className="submit-actions"><button className="button" disabled={status === "submitting" || status === "uploading"}>{status === "submitting" ? "Submitting…" : status === "uploading" ? "Uploading…" : "Submit for review"}</button>{message && <p className={status === "error" ? "error" : "notice"}>{message}</p>}</div>
+      <div className="submit-actions"><button className="button" disabled={status === "submitting"}>{status === "submitting" ? "Submitting…" : "Submit for review"}</button>{message && <p className={status === "error" ? "error" : "notice"}>{message}</p>}</div>
     </section>
   </form>;
 }

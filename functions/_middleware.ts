@@ -3,7 +3,7 @@ import { hasAdminAccess, type Env } from "./api/_shared";
 type PagesContext = EventContext<Env, string, unknown>;
 
 function needsSignedInUser(pathname: string) {
-  return pathname.startsWith("/admin") || pathname.startsWith("/submit");
+  return pathname.startsWith("/admin");
 }
 
 export async function onRequest(context: PagesContext) {
