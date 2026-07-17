@@ -11,7 +11,20 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const tool = getToolBySlug(slug);
   if (!tool) return {};
-  return { title: `${tool.name} — ${tool.tagline}`, description: tool.description, alternates: { canonical: absoluteUrl(`/tools/${tool.slug}/`) } };
+  const image = tool.screenshotUrl || tool.imageUrl || "/logo-tr.png";
+  return {
+    title: `${tool.name} — ${tool.tagline}`,
+    description: tool.description,
+    alternates: { canonical: absoluteUrl(`/tools/${tool.slug}/`) },
+    openGraph: {
+      title: `${tool.name} — ${tool.tagline}`,
+      description: tool.description,
+      url: absoluteUrl(`/tools/${tool.slug}/`),
+      type: "article",
+      images: [{ url: absoluteUrl(image), alt: `${tool.name} screenshot` }],
+    },
+    twitter: { card: "summary_large_image", title: tool.name, description: tool.description, images: [absoluteUrl(image)] },
+  };
 }
 
 function featureList(tool: ReturnType<typeof getPublishedTools>[number]) {

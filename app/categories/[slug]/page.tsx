@@ -44,7 +44,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   if (!category) return {};
-  return { title: category.seoTitle, description: category.description, alternates: { canonical: absoluteUrl(`/categories/${category.slug}/`) } };
+  return {
+    title: category.seoTitle,
+    description: category.description,
+    alternates: { canonical: absoluteUrl(`/categories/${category.slug}/`) },
+    openGraph: { title: category.seoTitle, description: category.description, url: absoluteUrl(`/categories/${category.slug}/`), type: "website" },
+  };
 }
 
 export default async function CategoryPage({ params }: { params: Params }) {

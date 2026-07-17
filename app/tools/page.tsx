@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { categories, getPublishedTools } from "@/data/catalog";
 import { ToolDirectory } from "@/components/ToolDirectory";
+import { absoluteUrl, siteConfig } from "@/lib/config";
 
-export const metadata: Metadata = { title: "Cybersecurity tools directory", description: "Browse curated CTI, OSINT, malware analysis, detection engineering, Web3 security, and vulnerability management tools." };
+export const metadata: Metadata = {
+  title: "Cybersecurity tools directory",
+  description: "Browse curated CTI, OSINT, malware analysis, detection engineering, security vendor, Web3 security, and vulnerability management tools.",
+  alternates: { canonical: absoluteUrl("/tools/") },
+  openGraph: { title: "Cybersecurity tools directory", description: siteConfig.description, url: absoluteUrl("/tools/"), type: "website" },
+};
 
 export default function ToolsPage() {
   const tools = getPublishedTools();
