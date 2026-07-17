@@ -3,6 +3,8 @@ export interface Env {
   TOOL_ASSETS?: R2Bucket;
   ADMIN_PASSWORD?: string;
   ADMIN_SESSION_SECRET?: string;
+  ADMIN_ALLOWED_EMAILS?: string;
+  CF_ACCESS_AUD?: string;
 }
 
 export type PagesContext = EventContext<Env, string, unknown>;
@@ -44,8 +46,12 @@ export async function hasAdminSession(request: Request, env: Env) {
 }
 
 export async function requireAdmin(request: Request, env: Env) {
-  if (await hasAdminSession(request, env)) return null;
+  if (await hasAdminAccess(request, env)) return null;
   return json({ error: "Unauthorized" }, { status: 401 });
+}
+
+export async function hasAdminAccess(request: Request, env: Env) {
+  return hasAdminSession(request, env);
 }
 
 export function sessionCookie(value: string, maxAge: number) {
