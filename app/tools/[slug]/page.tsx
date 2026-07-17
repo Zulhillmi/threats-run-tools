@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getCategoryBySlug, getPublishedTools, getToolBySlug, getCategoryNames } from "@/data/catalog";
 import { absoluteUrl } from "@/lib/config";
 import { ToolLogo } from "@/components/ToolLogo";
-import { ToolEngagement } from "@/components/ToolEngagement";
+import { ToolEngagement, ToolReviews } from "@/components/ToolEngagement";
 import type { Tool } from "@/lib/types";
 
 type Params = Promise<{ slug: string }>;
@@ -224,6 +224,12 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
               ))}
             </div>
           </div>}
+
+          <div className="content-card reviews-content-card">
+            <p className="kicker">Reviews</p>
+            <h2>Community reviews and comments</h2>
+            <ToolReviews slug={tool.slug} name={tool.name} />
+          </div>
 
           <div className="content-card faq-card">
             <p className="kicker">FAQ</p>

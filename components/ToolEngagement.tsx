@@ -23,7 +23,6 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
   const [stats, setStats] = useState<Stats>({ views: 0, upvotes: 0, downvotes: 0, score: 0 });
   const [userVote, setUserVote] = useState<1 | -1 | 0>(0);
   const [loadingVote, setLoadingVote] = useState(false);
-  const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME || "";
 
   const visitorId = useMemo(() => (typeof document === "undefined" ? "" : getVisitorId()), []);
 
@@ -66,16 +65,6 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
     }
   }
 
-  useEffect(() => {
-    if (!disqusShortname || document.getElementById("disqus-script")) return;
-    const script = document.createElement("script");
-    script.id = "disqus-script";
-    script.src = `https://${disqusShortname}.disqus.com/embed.js`;
-    script.async = true;
-    script.setAttribute("data-timestamp", String(Date.now()));
-    document.body.appendChild(script);
-  }, [disqusShortname]);
-
   return (
     <div className="tool-engagement" data-tool-engagement={slug}>
       <div className="engagement-stats" aria-label={`${name} page activity`}>
@@ -87,6 +76,25 @@ export function ToolEngagement({ slug, name }: { slug: string; name: string }) {
         <button className={userVote === 1 ? "active" : ""} type="button" disabled={loadingVote} onClick={() => vote(1)}>Useful ↑</button>
         <button className={userVote === -1 ? "active down" : ""} type="button" disabled={loadingVote} onClick={() => vote(-1)}>Not useful ↓</button>
       </div>
+    </div>
+  );
+}
+
+export function ToolReviews({ slug, name }: { slug: string; name: string }) {
+  const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME || "";
+
+  useEffect(() => {
+    if (!disqusShortname || document.getElementById("disqus-script")) return;
+    const script = document.createElement("script");
+    script.id = "disqus-script";
+    script.src = `https://${disqusShortname}.disqus.com/embed.js`;
+    script.async = true;
+    script.setAttribute("data-timestamp", String(Date.now()));
+    document.body.appendChild(script);
+  }, [disqusShortname]);
+
+  return (
+    <div className="tool-reviews" data-tool-reviews={slug}>
       <div className="review-box review-box-visible">
         <div>
           <strong>Community reviews</strong>
