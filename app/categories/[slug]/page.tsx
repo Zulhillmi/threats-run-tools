@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { categories, getCategoryBySlug, getCategoryNames, getToolsByCategory } from "@/data/catalog";
+import { categories, getCategoryBySlug, getToolsByCategory } from "@/data/catalog";
 import { absoluteUrl } from "@/lib/config";
+import { CategoryToolExplorer } from "@/components/CategoryToolExplorer";
 
 type Params = Promise<{ slug: string }>;
 
@@ -10,6 +11,11 @@ const categoryGuides: Record<string, { intro: string; selection: string[]; workf
     intro: "Threat intelligence tools should help analysts move from raw indicators to decisions: enrichment, pivots, context, confidence, and actionability. This category groups tools that support IOC triage, infrastructure investigation, malware context, exploited vulnerability prioritisation, and adversary behaviour mapping.",
     selection: ["Indicator enrichment and pivoting", "Evidence quality and source transparency", "Analyst workflow fit", "Free/community access where possible"],
     workflows: ["Enrich suspicious URLs, domains, files, and wallet activity", "Map findings to TTPs and detection opportunities", "Prioritise vulnerability response with exploitation context"],
+  },
+  "security-vendors": {
+    intro: "Security vendor pages combine commercial platforms, public research portals, and reputation/intelligence services analysts can use during triage, exposure management, and incident response. Use this category to compare vendor capabilities without treating the list as a ranked endorsement.",
+    selection: ["Primary workflow: CTI, exposure, IR, malware, or detection", "Public research depth and update cadence", "Integration fit for SOC and analyst tooling", "Pricing/access model and trial friction"],
+    workflows: ["Compare vendor intelligence portals before procurement", "Find public research sources for active threats", "Pick enrichment sources for investigations and detections"],
   },
   osint: {
     intro: "OSINT tools help investigators collect public evidence without jumping straight into paid platforms. Use this workflow for URLs, infrastructure, domains, exposed assets, personas, and web artefacts.",
@@ -59,6 +65,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
   const tools = getToolsByCategory(category.slug);
   const guide = categoryGuides[category.slug];
   const pricing = Array.from(new Set(tools.map((tool) => tool.pricingModel)));
+  const categoryNamesBySlug = Object.fromEntries(categories.map((item) => [item.slug, item.name]));
 
   return (
     <>
@@ -95,15 +102,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           <div className="section-head category-head">
             <div><p className="kicker">Curated list</p><h2>{category.name} tools</h2><p>Compare by purpose, pricing, tags, and investigation workflow. These are not ranked yet — the goal is to help pick the right tool for the job.</p></div>
           </div>
-          <div className="tool-table">
-            {tools.map((tool) => (
-              <a className="tool-row" href={`/tools/${tool.slug}/`} key={tool.id}>
-                <img src={tool.screenshotUrl || tool.imageUrl} alt="" />
-                <div className="tool-row-main"><strong>{tool.name}</strong><p>{tool.description}</p><div className="tag-row compact">{getCategoryNames(tool.categorySlugs).map((name) => <span className="tag" key={name}>{name}</span>)}{tool.tags.slice(0, 3).map((tag) => <span className="tag" key={tag}>#{tag}</span>)}</div></div>
-                <div className="tool-row-meta"><span className="pill accent">{tool.toolType}</span><span className="pill">{tool.pricingModel}</span></div>
-              </a>
-            ))}
-          </div>
+          <CategoryToolExplorer tools={tools} categoryName={category.name} categoryNamesBySlug={categoryNamesBySlug} />
         </div>
       </section>
     </>
