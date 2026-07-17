@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPublishedTools, getToolBySlug, getCategoryNames } from "@/data/catalog";
+import { getCategoryBySlug, getPublishedTools, getToolBySlug, getCategoryNames } from "@/data/catalog";
 import { absoluteUrl } from "@/lib/config";
 
 type Params = Promise<{ slug: string }>;
@@ -26,6 +26,7 @@ function featureList(tool: ReturnType<typeof getPublishedTools>[number]) {
 function bestFor(tool: ReturnType<typeof getPublishedTools>[number]) {
   const map: Record<string, string> = {
     cti: "Threat intel analysts enriching indicators and pivoting from weak signals into stronger context.",
+    "security-vendors": "Security teams comparing vendor platforms for threat intelligence, exposure monitoring, malware research, and operational security workflows.",
     osint: "Investigators collecting public web, domain, URL, and infrastructure evidence.",
     "malware-analysis": "Malware researchers triaging samples, hashes, families, and behavioural clues.",
     "detection-engineering": "Detection engineers building, testing, or mapping rules across SOC workflows.",
@@ -41,6 +42,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
   if (!tool) notFound();
 
   const categories = getCategoryNames(tool.categorySlugs);
+  const primaryCategory = getCategoryBySlug(tool.categorySlugs[0]);
   const related = getPublishedTools()
     .filter((item) => item.slug !== tool.slug && item.categorySlugs.some((category) => tool.categorySlugs.includes(category)))
     .slice(0, 3);
@@ -50,7 +52,11 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
   return (
     <>
       <section className="tool-hero shell">
-        <div className="breadcrumbs"><a href="/tools/">Tools</a><span>/</span><span>{tool.name}</span></div>
+        <div className="breadcrumbs">
+          <a href="/tools/">Tools</a>
+          {primaryCategory && <><span>/</span><a href={`/categories/${primaryCategory.slug}/`}>{primaryCategory.name}</a></>}
+          <span>/</span><span>{tool.name}</span>
+        </div>
         <div className="tool-hero-grid">
           <div className="tool-hero-copy">
             <div className="tag-row compact"><span className="pill accent">{tool.toolType}</span><span className="pill">{tool.pricingModel}</span>{tool.featured && <span className="pill">Featured</span>}</div>
