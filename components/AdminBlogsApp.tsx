@@ -37,7 +37,7 @@ export function AdminBlogsApp() {
     }
     const data = (await res.json()) as { blogs?: Blog[] };
     setBlogs(data.blogs || []);
-    setStatus(`Synced ${(data.blogs || []).length} article records from D1`);
+    setStatus(`Loaded ${(data.blogs || []).length} article records`);
   }
   useEffect(() => {
     load();
@@ -106,7 +106,7 @@ export function AdminBlogsApp() {
       <aside className="admin-sidebar-panel enterprise-sidebar">
         <div className="enterprise-brand">
           <span className="admin-orb">TR</span>
-          <div><strong>Tools Console</strong><small>Editorial operations</small></div>
+          <div><strong>Threats.run (TOOLS)</strong><small>Management</small></div>
         </div>
         <nav className="enterprise-nav" aria-label="Admin sections">
           <a href="/admin/">Catalog</a>
@@ -118,8 +118,8 @@ export function AdminBlogsApp() {
       <main className="enterprise-main">
         <section className="enterprise-hero">
           <div>
-            <p className="eyebrow">Enterprise admin</p>
-            <h1>Article control center</h1>
+            <p className="eyebrow">Articles</p>
+            <h1>Articles</h1>
             <p>Publish readable public articles for the tools directory and homepage cards.</p>
           </div>
           <div className="admin-actions">

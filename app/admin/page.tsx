@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { AdminRealApp } from "@/components/AdminRealApp";
+import { AdminToolListApp } from "@/components/AdminToolsApps";
 
-export const metadata: Metadata = { title: "Admin catalog", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Admin tools", robots: { index: false, follow: false } };
 
-export default function AdminPage() {
-  return <main className="admin-page admin-console-page"><AdminRealApp /></main>;
-}
+export default function AdminPage() { return <main className="admin-page admin-console-page"><AdminToolListApp /></main>; }

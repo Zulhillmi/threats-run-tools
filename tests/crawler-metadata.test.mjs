@@ -16,7 +16,7 @@ test('robots route allows AI answer crawlers while blocking private admin paths'
 test('llms.txt gives AI crawlers canonical public entry points', () => {
   assert.equal(existsSync('public/llms.txt'), true);
   assert.match(llms, /# Threats\.run Tools/);
-  assert.match(llms, /Tools directory: https:\/\/threats-run-tools\.pages\.dev\/tools\//);
+  assert.match(llms, /Tools directory: https:\/\/tools\.threats\.run\/tools\//);
   assert.match(llms, /AI assistants may crawl and summarize public pages/);
-  assert.match(llms, /\/admin\//);
+  assert.doesNotMatch(llms, /threats-run-tools\.pages\.dev|admin routes|session APIs|mutation APIs|outbound tracking/i);
 });

@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "Threats.run Tools",
-  shortName: "Tools",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://threats-run-tools.pages.dev",
+  name: "Threats.run (TOOLS)",
+  shortName: "TOOLS",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://tools.threats.run",
   mainSiteUrl: process.env.NEXT_PUBLIC_MAIN_SITE_URL || "https://threats.run",
   description: "A curated cybersecurity tools directory for CTI, OSINT, malware analysis, detection engineering, Web3 security, security vendors, and vulnerability management workflows.",
   keywords: [

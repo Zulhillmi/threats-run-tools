@@ -16,7 +16,7 @@ export function AdminLogin() {
   return <form className="auth-card" onSubmit={submit}>
     <p className="eyebrow">Admin</p>
     <h1>Sign in</h1>
-    <p className="muted">Protected admin for live D1 catalog management.</p>
+    <p className="muted">Protected management area.</p>
     <label>Password<input className="field" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoFocus /></label>
     <button className="button" type="submit">Sign in</button>
     {status && <p className="form-note">{status}</p>}

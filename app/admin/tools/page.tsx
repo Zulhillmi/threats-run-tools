@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { AdminRealApp } from "@/components/AdminRealApp";
+import { AdminToolListApp } from "@/components/AdminToolsApps";
 
-export const metadata: Metadata = { title: "Catalog admin", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Admin tools", robots: { index: false, follow: false } };
 
-export default function AdminToolsPage() {
-  return <main className="admin-page"><section className="page-hero compact"><p className="eyebrow">ADMIN</p><h1>Catalog admin</h1><p>Create, edit, publish, archive, feature, and delete tools in D1.</p></section><AdminRealApp /></main>;
-}
+export default function AdminToolsPage() { return <main className="admin-page admin-console-page"><AdminToolListApp /></main>; }

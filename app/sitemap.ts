@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { categories, getPublishedTools } from "@/data/catalog";
 import { absoluteUrl } from "@/lib/config";
+import { publicArticles } from "@/lib/articles";
 
 export const dynamic = "force-static";
 
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/"), lastModified, changeFrequency: "daily", priority: 1 },
     { url: absoluteUrl("/tools/"), lastModified, changeFrequency: "daily", priority: 0.95 },
     { url: absoluteUrl("/submit/"), lastModified, changeFrequency: "monthly", priority: 0.35 },
+    { url: absoluteUrl("/blog/"), lastModified, changeFrequency: "weekly", priority: 0.7 },
   ];
 
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((category) => ({
@@ -27,5 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: tool.featured ? 0.8 : 0.65,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...toolRoutes];
+  const articleRoutes: MetadataRoute.Sitemap = publicArticles.map((article) => ({
+    url: absoluteUrl(`/blog/${article.slug}/`),
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...toolRoutes, ...articleRoutes];
 }

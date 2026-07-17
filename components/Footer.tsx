@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-inner shell">
         <div className="footer-brand">
-          <strong>tools.threats.run</strong>
+          <strong>{siteConfig.name}</strong>
           <p>A curated cybersecurity tools directory by Threats.run for CTI and security operations workflows.</p>
         </div>
         <nav aria-label="Footer explore">
@@ -14,8 +14,9 @@ export function Footer() {
           <a href="/categories/cti/">Threat intelligence</a>
           <a href="/categories/osint/">OSINT</a>
         </nav>
-        <nav aria-label="Footer contribute">
-          <strong>Contribute</strong>
+        <nav aria-label="Footer resources">
+          <strong>Resources</strong>
+          <a href="/blog/">Articles</a>
           <a href="/submit/">Submit a tool</a>
         </nav>
         <nav aria-label="Threats.run links">
