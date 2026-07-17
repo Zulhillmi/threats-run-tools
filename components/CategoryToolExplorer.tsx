@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { PricingModel, Tool } from "@/lib/types";
+
+const PAGE_SIZE = 12;
 
 const pricingLabels: Record<PricingModel, string> = {
   free: "Free",
@@ -21,6 +23,7 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
   const [query, setQuery] = useState("");
   const [pricing, setPricing] = useState("");
   const [type, setType] = useState("");
+  const [page, setPage] = useState(1);
   const toolTypes = useMemo(() => Array.from(new Set(tools.map((tool) => tool.toolType))).sort(), [tools]);
 
   const filteredTools = useMemo(() => {
@@ -34,6 +37,12 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
       return matchesPricing && matchesType && (!needle || haystack.includes(needle));
     });
   }, [tools, query, pricing, type]);
+
+  useEffect(() => { setPage(1); }, [query, pricing, type]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredTools.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paginatedTools = filteredTools.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   function clearFilters() { setQuery(""); setPricing(""); setType(""); }
 
@@ -55,11 +64,11 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
     </form>
 
     <div className="directory-summary category-summary-bar">
-      <p className="result-count"><strong>{filteredTools.length}</strong> of {tools.length} listings</p>
+      <p className="result-count"><strong>{filteredTools.length}</strong> of {tools.length} listings · page {currentPage} of {totalPages}</p>
     </div>
 
     <div className="tool-table category-tool-table">
-      {filteredTools.map((tool) => (
+      {paginatedTools.map((tool) => (
         <a className="tool-row rich-tool-row" href={`/tools/${tool.slug}/`} key={tool.id}>
           {tool.screenshotUrl || tool.imageUrl ? <img src={tool.screenshotUrl || tool.imageUrl} alt="" loading="lazy" /> : <div className="tool-row-fallback">{tool.name.slice(0,2).toUpperCase()}</div>}
           <div className="tool-row-main">
@@ -71,6 +80,11 @@ export function CategoryToolExplorer({ tools, categoryName, categoryNamesBySlug 
         </a>
       ))}
     </div>
+    {filteredTools.length > PAGE_SIZE && <div className="pagination" aria-label="Category pagination">
+      <button className="button ghost small" type="button" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>Previous</button>
+      {Array.from({ length: totalPages }, (_, index) => index + 1).map((item) => <button key={item} className={`page-button ${item === currentPage ? "active" : ""}`} type="button" onClick={() => setPage(item)} aria-current={item === currentPage ? "page" : undefined}>{item}</button>)}
+      <button className="button ghost small" type="button" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>Next</button>
+    </div>}
     {filteredTools.length === 0 && <div className="empty-state">No matching tools. Try another keyword or clear the filters.</div>}
   </div>;
 }

@@ -13,6 +13,7 @@ const pricingLabels: Record<PricingModel, string> = {
 };
 
 type ViewMode = "grid" | "list";
+const PAGE_SIZE = 24;
 
 export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories: Category[] }) {
   const [query, setQuery] = useState("");
@@ -20,6 +21,7 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
   const [pricing, setPricing] = useState("");
   const [type, setType] = useState("");
   const [view, setView] = useState<ViewMode>("grid");
+  const [page, setPage] = useState(1);
 
   const toolTypes = useMemo(() => Array.from(new Set(tools.map((tool) => tool.toolType))).sort(), [tools]);
 
@@ -46,6 +48,12 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
       return matchesCategory && matchesPricing && matchesType && matchesQuery;
     });
   }, [tools, query, category, pricing, type]);
+
+  useEffect(() => { setPage(1); }, [query, category, pricing, type]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredTools.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paginatedTools = filteredTools.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   function clearFilters() {
     setQuery("");
@@ -83,7 +91,7 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
         </select>
       </form>
       <div className="directory-summary tools-summary">
-        <p className="result-count">{filteredTools.length} of {tools.length} tools shown</p>
+        <p className="result-count">{filteredTools.length} of {tools.length} tools shown · page {currentPage} of {totalPages}</p>
         <div className="view-toolbar" aria-label="Directory view options">
           {(query || category || pricing || type) && <button className="button ghost small" type="button" onClick={clearFilters}>Clear filters</button>}
           <button className={`view-button ${view === "grid" ? "active" : ""}`} type="button" onClick={() => setView("grid")} aria-pressed={view === "grid"}>Grid</button>
@@ -91,8 +99,13 @@ export function ToolDirectory({ tools, categories }: { tools: Tool[]; categories
         </div>
       </div>
       <div className={`grid tool-directory-grid ${view === "list" ? "tool-list-view" : "tool-grid-view"}`}>
-        {filteredTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
+        {paginatedTools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
       </div>
+      {filteredTools.length > PAGE_SIZE && <div className="pagination" aria-label="Tools pagination">
+        <button className="button ghost small" type="button" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>Previous</button>
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map((item) => <button key={item} className={`page-button ${item === currentPage ? "active" : ""}`} type="button" onClick={() => setPage(item)} aria-current={item === currentPage ? "page" : undefined}>{item}</button>)}
+        <button className="button ghost small" type="button" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>Next</button>
+      </div>}
       {filteredTools.length === 0 && <div className="empty-state">No matching tools yet. Try another keyword or submit one we should add.</div>}
     </>
   );

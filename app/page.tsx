@@ -2,6 +2,7 @@ import { categories, getPublishedTools } from "@/data/catalog";
 import { ToolCard } from "@/components/ToolCard";
 import { CategoryCard } from "@/components/CategoryCard";
 import { siteConfig } from "@/lib/config";
+import { HomeArticles } from "@/components/HomeArticles";
 
 export default function HomePage() {
   const tools = getPublishedTools();
@@ -31,6 +32,7 @@ export default function HomePage() {
         <div className="section-head"><div><p className="kicker">Featured</p><h2>Analyst-ready picks</h2></div><a className="button ghost" href="/tools/">View all</a></div>
         <div className="grid">{featured.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div>
       </section>
+      <HomeArticles />
       <section className="section shell">
         <div className="section-head"><div><p className="kicker">Categories</p><h2>Browse by workflow</h2></div></div>
         <div className="grid">{categories.map((category) => <CategoryCard key={category.slug} category={category} />)}</div>
