@@ -19,6 +19,7 @@ export type Tool = {
   featured?: boolean;
   sponsorTier?: "none" | "community" | "sponsor" | "partner";
   status: ToolStatus;
+  faqs?: { question: string; answer: string }[];
 };
 
 export type Category = {

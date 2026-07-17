@@ -36,6 +36,24 @@ function bestFor(tool: ReturnType<typeof getPublishedTools>[number]) {
   return tool.categorySlugs.map((slug) => map[slug]).filter(Boolean).slice(0, 3);
 }
 
+function faqList(tool: ReturnType<typeof getPublishedTools>[number]) {
+  if (tool.faqs?.length) return tool.faqs;
+  return [
+    {
+      question: `What is ${tool.name} used for?`,
+      answer: `${tool.name} is used for ${tool.toolType.toLowerCase()} workflows. ${tool.description}`
+    },
+    {
+      question: `Is ${tool.name} free?`,
+      answer: `The listed pricing model is ${tool.pricingModel}. Check the official site for exact plan limits, enterprise packaging, and current commercial terms.`
+    },
+    {
+      question: `Which teams should evaluate ${tool.name}?`,
+      answer: `It is most relevant to teams working across ${getCategoryNames(tool.categorySlugs).join(", ").toLowerCase()} workflows.`
+    }
+  ];
+}
+
 export default async function ToolDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
   const tool = getToolBySlug(slug);
@@ -48,6 +66,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
     .slice(0, 3);
   const features = featureList(tool);
   const useCases = bestFor(tool);
+  const faqs = faqList(tool);
 
   return (
     <>
@@ -94,9 +113,17 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
             <div className="tag-row">{categories.map((name) => <span className="tag" key={name}>{name}</span>)}{tool.tags.map((tag) => <span className="tag" key={tag}>#{tag}</span>)}</div>
           </div>
 
+          <div className="content-card faq-card">
+            <p className="kicker">FAQ</p>
+            <h2>Questions about {tool.name}</h2>
+            <div className="faq-list">
+              {faqs.map((faq) => <details className="faq-item" key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
+            </div>
+          </div>
+
           {related.length > 0 && <div className="content-card"><p className="kicker">Related</p><h2>Similar tools</h2><div className="related-list">{related.map((item) => <a href={`/tools/${item.slug}/`} key={item.slug}><strong>{item.name}</strong><span>{item.tagline}</span></a>)}</div></div>}
 
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.name, description: tool.description, applicationCategory: tool.toolType, offers: { "@type": "Offer", price: tool.pricingModel === "paid" || tool.pricingModel === "enterprise" ? undefined : "0" }, url: tool.websiteUrl }) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.name, description: tool.description, applicationCategory: tool.toolType, offers: { "@type": "Offer", price: tool.pricingModel === "paid" || tool.pricingModel === "enterprise" ? undefined : "0" }, url: tool.websiteUrl }, { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }]) }} />
         </article>
 
         <aside className="tool-sidebar">
