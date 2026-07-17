@@ -247,3 +247,22 @@ body:has(.admin-console-page) .site-header,body:has(.admin-console-page) .site-f
 @media (max-width:900px){.tool-directory-grid.tool-grid-view .tool-image{height:162px}}
 @media (max-width:430px){.tool-directory-grid.tool-grid-view .tool-image{height:150px}}
 
+
+
+/* CMS v1 articles page parity */
+.blogs-cms-v1 .blogs-cms-list-panel{margin-bottom:16px}
+.blogs-cms-v1 .wp-table tr.active-row td{background:#f0f6fc;box-shadow:inset 3px 0 0 #2271b1}
+.blogs-cms-v1 .wp-table td .link-button{appearance:none;border:0;background:transparent;color:#2271b1;font-weight:700;padding:0;margin:0 10px 0 0;cursor:pointer;font:inherit}
+.blogs-cms-v1 .wp-table td .link-button:hover,.blogs-cms-v1 .wp-table td a:hover{text-decoration:underline}
+.blogs-cms-editor-grid{margin-top:16px;grid-template-columns:minmax(0,1fr) 320px}
+.wp-markdown-field{min-height:360px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.55}
+.blogs-cms-v1 .section-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.blogs-cms-v1 .section-head h2{margin:3px 0;color:#1d2327;font-size:22px;letter-spacing:-.02em}
+.blogs-cms-v1 .muted{color:#646970;margin:0}
+.blogs-cms-v1 .pill{background:#f6f7f7;border:1px solid #c3c4c7;color:#50575e;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;align-self:center}
+.blogs-cms-v1 .button.full{width:100%;justify-content:center;margin-top:8px}
+@media (max-width:1100px){.blogs-cms-editor-grid{grid-template-columns:1fr}.blogs-cms-v1 .section-head{display:grid}}
+
+
+.blogs-cms-v1 .sticky-editor-head{background:transparent;border:0;padding:0;box-shadow:none}
+.blogs-cms-v1 .wp-panel .notice.warning{background:#fcf9e8;border-color:#dba617;color:#1d2327}

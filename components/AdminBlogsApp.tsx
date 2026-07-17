@@ -101,71 +101,102 @@ export function AdminBlogsApp() {
     await load();
   }
 
+  async function logout() {
+    await fetch("/api/admin/logout", { method: "POST", credentials: "include" });
+    location.href = "/admin/login/";
+  }
+
   return (
-    <div className="enterprise-admin">
-      <aside className="admin-sidebar-panel enterprise-sidebar">
-        <div className="enterprise-brand">
-          <span className="admin-orb">TR</span>
-          <div><strong>Threats.run TOOLS</strong><small>Management</small></div>
-        </div>
-        <nav className="enterprise-nav" aria-label="Admin sections">
-          <a href="/admin/">Catalog</a>
+    <div className="wp-admin-shell blogs-cms-v1">
+      <aside className="wp-sidebar">
+        <div className="wp-brand"><span>TR</span><div><strong>Threats.run TOOLS</strong><small>Management</small></div></div>
+        <nav className="wp-nav" aria-label="Admin sections">
+          <a href="/admin/">Tools</a>
           <a className="active" href="/admin/blogs/">Articles</a>
-          <a href="/blog/" target="_blank">Public preview</a>
+          <a href="/" target="_blank">View site</a>
         </nav>
+        <button className="button ghost small" onClick={logout}>Logout</button>
       </aside>
 
-      <main className="enterprise-main">
-        <section className="enterprise-hero">
+      <main className="wp-main">
+        <div className="wp-title-row">
           <div>
-            <p className="eyebrow">Articles</p>
+            <p className="eyebrow">CMS</p>
             <h1>Articles</h1>
-            <p>Publish readable public articles for the tools directory and homepage cards.</p>
+            <p>{status}</p>
           </div>
           <div className="admin-actions">
-            <button className="button ghost" onClick={() => choose("new")}>New article</button>
-            <button className="button" disabled={saving || validation.length > 0} onClick={save}>{saving ? "Saving…" : "Save article"}</button>
+            <button className="button ghost" onClick={() => choose("new")}>Add New</button>
+            <button className="button" disabled={saving || validation.length > 0} onClick={save}>{saving ? "Saving…" : "Save"}</button>
           </div>
-        </section>
+        </div>
 
-        <section className="admin-metric-grid" aria-label="Article metrics">
-          <div><span>Total articles</span><strong>{blogs.length}</strong></div>
+        <section className="admin-metric-grid wp-metrics" aria-label="Article metrics">
+          <div><span>Total</span><strong>{blogs.length}</strong></div>
           <div><span>Published</span><strong>{counts.published}</strong></div>
           <div><span>Drafts</span><strong>{counts.drafts}</strong></div>
           <div><span>Archived</span><strong>{counts.archived}</strong></div>
         </section>
-        <div className="admin-status-strip"><span>{status}</span><span>{filtered.length} visible</span></div>
 
-        <div className="enterprise-workbench">
-          <section className="admin-panel enterprise-list-panel">
-            <div className="admin-toolbar compact-toolbar"><div><p className="kicker">Records</p><h2>Articles</h2></div><span className="pill">{filtered.length}/{blogs.length}</span></div>
-            <input className="field" placeholder="Search title, slug, status…" value={query} onChange={(e) => setQuery(e.target.value)} />
-            <select className="field" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}><option value="all">All statuses</option><option>draft</option><option>published</option><option>archived</option></select>
-            <div className="admin-tool-list enterprise-record-list" role="listbox" aria-label="Live articles">
-              <button className={selected === "new" ? "active" : ""} onClick={() => choose("new")}><strong>+ New article</strong><span>Draft editorial record</span></button>
-              {filtered.map((blog) => <button key={blog.slug} className={selected === blog.slug ? "active" : ""} onClick={() => choose(blog)}><strong>{blog.title}</strong><span>{blog.status} · {blog.slug}</span></button>)}
-            </div>
-          </section>
+        <section className="wp-panel blogs-cms-list-panel">
+          <div className="wp-table-tools">
+            <input className="field" placeholder="Search articles…" value={query} onChange={(e) => setQuery(e.target.value)} />
+            <select className="field" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+              <option value="all">All statuses</option>
+              <option>draft</option>
+              <option>published</option>
+              <option>archived</option>
+            </select>
+            <span className="pill">{filtered.length}/{blogs.length} visible</span>
+          </div>
+          <div className="wp-table-wrap">
+            <table className="wp-table">
+              <thead><tr><th>Title</th><th>Status</th><th>Slug</th><th>Published</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr className={selected === "new" ? "active-row" : ""}>
+                  <td><strong>+ New article</strong><small>Draft editorial record</small></td>
+                  <td><span className="status-pill status-draft">draft</span></td>
+                  <td>new</td>
+                  <td>—</td>
+                  <td><button className="link-button" onClick={() => choose("new")}>Create</button></td>
+                </tr>
+                {filtered.map((blog) => (
+                  <tr key={blog.slug} className={selected === blog.slug ? "active-row" : ""}>
+                    <td><strong>{blog.title}</strong><small>{blog.excerpt}</small></td>
+                    <td><span className={`status-pill status-${blog.status}`}>{blog.status}</span></td>
+                    <td>{blog.slug}</td>
+                    <td>{blog.publishedAt ? blog.publishedAt.slice(0, 10) : "—"}</td>
+                    <td><button className="link-button" onClick={() => choose(blog)}>Edit</button>{blog.slug ? <a href={`/blog/${blog.slug}/`} target="_blank">View</a> : null}</td>
+                  </tr>
+                ))}
+                {!filtered.length ? <tr><td colSpan={5}>No articles found.</td></tr> : null}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-          <section className="admin-panel admin-editor enterprise-editor">
+        <section className="wp-editor-grid blogs-cms-editor-grid">
+          <div className="wp-panel editor-main">
             <div className="section-head sticky-editor-head">
               <div><p className="eyebrow">{selected === "new" ? "Create" : "Edit"}</p><h2>{selected === "new" ? "New article" : draft.title}</h2><p className="muted">{draft.slug ? `/blog/${draft.slug}/` : "Unsaved draft"}</p></div>
               <div className="admin-actions">{draft.slug ? <a className="button ghost" href={`/blog/${draft.slug}/`} target="_blank">Preview</a> : null}{selected !== "new" ? <button className="button ghost danger-button" onClick={remove}>Delete</button> : null}</div>
             </div>
-            {validation.length ? <div className="notice warning"><strong>Needs attention</strong><ul>{validation.map((item) => <li key={item}>{item}</li>)}</ul></div> : null}
-
-            <div className="admin-form-grid enterprise-form-grid">
-              <Field label="Title"><input className="field" value={draft.title} onChange={(e) => set("title", e.target.value)} /></Field>
-              <Field label="Slug"><div className="inline-field"><input className="field" value={draft.slug} onChange={(e) => set("slug", slugify(e.target.value))} /><button className="button ghost small" onClick={() => set("slug", slugify(draft.title))}>Generate</button></div></Field>
-              <Field label="Author"><input className="field" value={draft.author || ""} onChange={(e) => set("author", e.target.value)} /></Field>
-              <Field label="Status"><select className="field" value={draft.status} onChange={(e) => set("status", e.target.value)}><option>draft</option><option>published</option><option>archived</option></select></Field>
-              <Field label="Image URL"><input className="field" value={draft.imageUrl || ""} onChange={(e) => set("imageUrl", e.target.value)} /></Field>
-              <Field label="Published at"><input className="field" type="datetime-local" value={(draft.publishedAt || "").slice(0, 16)} onChange={(e) => set("publishedAt", e.target.value)} /></Field>
-            </div>
+            {validation.length ? <div className="notice warning wp-notice"><strong>Needs attention</strong><ul>{validation.map((item) => <li key={item}>{item}</li>)}</ul></div> : null}
+            <Field label="Title"><input className="field" value={draft.title} onChange={(e) => set("title", e.target.value)} /></Field>
+            <Field label="Slug"><div className="inline-field"><input className="field" value={draft.slug} onChange={(e) => set("slug", slugify(e.target.value))} /><button className="button ghost small" onClick={() => set("slug", slugify(draft.title))}>Generate</button></div></Field>
             <Field label="Excerpt"><textarea className="field textarea" value={draft.excerpt} onChange={(e) => set("excerpt", e.target.value)} /></Field>
-            <Field label="Content"><textarea className="field textarea blog-content-field enterprise-markdown-field" value={draft.content} onChange={(e) => set("content", e.target.value)} /></Field>
-          </section>
-        </div>
+            <Field label="Content"><textarea className="field textarea blog-content-field wp-markdown-field" value={draft.content} onChange={(e) => set("content", e.target.value)} /></Field>
+          </div>
+
+          <aside className="wp-panel editor-side">
+            <Field label="Status"><select className="field" value={draft.status} onChange={(e) => set("status", e.target.value)}><option>draft</option><option>published</option><option>archived</option></select></Field>
+            <Field label="Author"><input className="field" value={draft.author || ""} onChange={(e) => set("author", e.target.value)} /></Field>
+            <Field label="Image URL"><input className="field" value={draft.imageUrl || ""} onChange={(e) => set("imageUrl", e.target.value)} /></Field>
+            <Field label="Published at"><input className="field" type="datetime-local" value={(draft.publishedAt || "").slice(0, 16)} onChange={(e) => set("publishedAt", e.target.value)} /></Field>
+            <button className="button full" disabled={saving || validation.length > 0} onClick={save}>{saving ? "Saving…" : "Save article"}</button>
+            {selected !== "new" ? <button className="button ghost danger-button full" onClick={remove}>Delete article</button> : null}
+          </aside>
+        </section>
       </main>
     </div>
   );
