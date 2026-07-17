@@ -61,7 +61,7 @@ h2{font-size:clamp(24px,3.2vw,38px);letter-spacing:-.04em;margin:0 0 12px}.conte
 .tool-card{display:flex;min-height:100%;flex-direction:column;gap:14px;overflow:hidden}
 .tool-image-link{display:block;position:relative;margin:-10px -10px 0;border-radius:18px;background:linear-gradient(135deg,rgba(188,255,47,.07),rgba(255,255,255,.035));overflow:hidden}
 .tool-image{display:block;width:100%;height:160px;object-fit:cover;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:#050505}
-.tool-image-logo{position:absolute;z-index:2;right:12px;bottom:12px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.tool-image-logo{position:absolute;z-index:2;right:14px;bottom:14px;width:40px;height:40px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
 .fallback-image{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 10%,rgba(188,255,47,.32),transparent 45%),#090909;padding:0}.fallback-image span{font-size:44px;font-weight:800;color:var(--accent)}
 .tool-top{display:flex;gap:14px;align-items:flex-start}
 .tool-logo{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:rgba(188,255,47,.14);border:1px solid rgba(188,255,47,.34);color:var(--accent);font-weight:800;flex:0 0 auto;overflow:hidden}.tool-logo img{width:100%;height:100%;object-fit:contain;padding:7px;background:#fff}.tool-logo>span{display:grid;place-items:center;width:100%;height:100%}.tool-logo-row{width:38px;height:38px;border-radius:12px}.tool-logo-row img{padding:6px}.tool-logo-hero{width:64px;height:64px;border-radius:18px}.tool-logo-hero img{padding:10px}
